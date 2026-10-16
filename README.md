@@ -40,7 +40,8 @@ dea-governance/
 ├── LICENSE                                   # MIT
 ├── docs/
 │   └── design/
-│       └── entity-system-foundation.md       # DEA-ID-000
+│       ├── entity-system-foundation.md       # DEA-ID-000
+│       └── entity-system-public-surface.md   # Registry of public surfaces (e.g. lists.technehub.com)
 ├── change-requests/
 │   ├── README.md
 │   ├── CR-012-org-wide-entity-governance.md  # CR-012 (renumbered from CR-DEA-ID-001)
