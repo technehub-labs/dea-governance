@@ -14,7 +14,7 @@ A public surface is registered when one of the following holds:
 
 | Subdomain | Surface type | Hosted artifact | Source-of-truth repo | Mirror hash audit | Last verified |
 |---|---|---|---|---|---|
-| `lists.technehub.com` | Reference registry | IANA media types (RFC 6838), IANA URI schemes (RFC 3986 / RFC 7595), ECF 7 x 7 coordinate enumeration | `technehub-labs/dea-catalog-references` | `data/SHA256SUMS` (3 rows) | 2026-10-16 |
+| `lists.technehub.com` | Reference registry | IANA media types (RFC 6838), IANA URI schemes (RFC 3986 / RFC 7595), ECF 7 x 7 coordinate enumeration; **Licensing & LIA** at `/licensing.html` + `docs/LICENSING-AND-LIA.md` (CC0 1.0 grant, documented LIA under GDPR Art. 6(1)(f)) | `technehub-labs/dea-catalog-references` | `data/SHA256SUMS` (3 rows) + `docs/LICENSING-AND-LIA.md` | 2026-10-20 |
 
 ### `lists.technehub.com`
 
@@ -23,6 +23,7 @@ The OpenDEA reference registry is the first registered public surface. It mirror
 1. **IANA media types** (RFC 6838): 2,366 records as of the 2026-10-16 snapshot.
 2. **IANA URI schemes** (RFC 3986 / RFC 7595): 451 records (uri-schemes-1 sub-registry) as of the 2026-10-16 snapshot.
 3. **ECF 7 x 7 coordinates**: 49 cells from `dea-metaframework/framework/matrix.md`.
+4. **Licensing & LIA**: the personal-name registrant contacts in the mirror are redacted to deterministic opaque tokens under a documented Legitimate-Interest Assessment (GDPR Art. 6(1)(f)). See `lists.technehub.com/licensing.html` for the human surface and `dea-catalog-references/docs/LICENSING-AND-LIA.md` for the long-form LIA.
 
 The mirror is deterministic, hash-audited, and reproducible from the source XMLs / Markdown via `scripts/build.sh` in `dea-catalog-references`. If the mirror and the source disagree, the source wins; the mirror is regenerated, not edited by hand.
 
