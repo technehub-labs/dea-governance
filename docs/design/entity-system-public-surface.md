@@ -20,7 +20,7 @@ A public surface is registered when one of the following holds:
 
 The OpenDEA reference registry is the first registered public surface. It mirrors three sources:
 
-1. **IANA media types** (RFC 6838): 2,305 records as of the 2026-10-16 snapshot.
+1. **IANA media types** (RFC 6838): 2,366 records as of the 2026-10-16 snapshot.
 2. **IANA URI schemes** (RFC 3986 / RFC 7595): 451 records (uri-schemes-1 sub-registry) as of the 2026-10-16 snapshot.
 3. **ECF 7 x 7 coordinates**: 49 cells from `dea-metaframework/framework/matrix.md`.
 
