@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-013: Catalog Portfolio and Ownership Register
+
+Establishes `registers/catalog-portfolio.yaml` covering all 45 catalog repositories named by metamodel `catalog_repo` values (entity allocations, observed state at the 2026-10-30 audit, ratification dates). Ratifies `dea-catalog-information-assets` at creation; names the naming-drift (processes, services) and stale-existing (BusinessService, SolutionComponent, PerformanceMetric) follow-ups; adds the register maintenance rule for future catalog creations. Companion to metamodel CR-MET-014.
+
 ### DEA-ID-000: General Entity System Foundation Paper
 
 Landing of the OpenDEA entity-system foundation paper in `docs/design/entity-system-foundation.md`. The architectural philosophy, 5-concern taxonomy (identity / semantics / relationships / lifecycle / conformance), authority model (Architecture Framework → ECF/Metamodel → General Entity System → Catalogs), 7-workstream taxonomy, 4-phase adoption programme. The paper is the philosophical foundation for the entity-system programme; CR-012 is the normative CR that operationalises it. No entity, schema, or id changes; the foundation paper is advisory.
