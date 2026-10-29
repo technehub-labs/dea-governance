@@ -10,7 +10,7 @@
 
 ## 1. Problem Statement
 
-Metamodel change requests CR-018, CR-020, and CR-022 dispose catalog-side effects to "the catalog portfolio map" and "the catalog-ownership register" owned by `CR-013 (dea-governance)`. No such register exists: the governance repository holds CR-012 (the standard) and the foundation paper only. Meanwhile the org has accumulated 45 catalog repositories named as `catalog_repo` values in the metamodel, created and populated without a single ratification record, and the metamodel's entity `lifecycle` field drifted from reality (audited and backfilled separately by metamodel CR-MET-014, whose dispositions cite this register as their observation source).
+Metamodel change requests CR-018, CR-020, and CR-022 dispose catalog-side effects to "the catalog portfolio map" and "the catalog-ownership register" owned by `CR-013 (dea-governance)`. No such register exists: the governance repository holds CR-012 (the standard) and the foundation paper only. Meanwhile the org has accumulated 43 catalog repositories named as `catalog_repo` values in the metamodel, created and populated without a single ratification record, and the metamodel's entity `lifecycle` field drifted from reality (audited and backfilled separately by metamodel CR-MET-014, whose dispositions cite this register as their observation source).
 
 ## 2. Objective
 
@@ -18,7 +18,7 @@ Establish the catalog portfolio and ownership register as the governance-layer r
 
 ## 3. The Register
 
-`registers/catalog-portfolio.yaml` records all 45 repositories named by metamodel `catalog_repo` values, each with: owned entity ids, observed state (`populated` / `skeleton` / `missing`), canonical record count at the 2026-10-30 audit snapshot, ratification date, and notes. The register is descriptive at the governance layer: the metamodel remains the canonical authority for entity-type contracts (EGV-001), and the metamodel `lifecycle` field remains the normative expression of realization maturity.
+`registers/catalog-portfolio.yaml` records all 43 repositories named by metamodel `catalog_repo` values, each with: owned entity ids, observed state (`populated` / `skeleton` / `missing`), canonical record count at the 2026-10-30 audit snapshot, ratification date, and notes. The register is descriptive at the governance layer: the metamodel remains the canonical authority for entity-type contracts (EGV-001), and the metamodel `lifecycle` field remains the normative expression of realization maturity.
 
 ## 4. Ratifications and Findings
 
@@ -45,6 +45,6 @@ A new catalog repository MUST be recorded in this register in the same programme
 
 ## 7. Definition of Done
 
-1. `registers/catalog-portfolio.yaml` parses and covers all 45 `catalog_repo` values named by the metamodel at 2026-10-30.
+1. `registers/catalog-portfolio.yaml` parses and covers all 43 `catalog_repo` values named by the metamodel at 2026-10-30.
 2. Register row and CHANGELOG entry landed in this PR.
 3. Metamodel CR-MET-014 merged (dependency satisfied; PR #202).
