@@ -1,0 +1,260 @@
+# Catalog Portfolio and Ownership Register (CR-013)
+#
+# The authoritative register of technehub-labs catalog repositories and the
+# metamodel entity allocations they own. Referenced as "the catalog
+# portfolio map" and "the catalog-ownership register" by metamodel CR-018,
+# CR-020, and CR-022 dispositions, which name CR-013 (dea-governance) as
+# the owning change.
+#
+# Observational fields (state, canonical_count) record the audit snapshot
+# of 2026-10-30 (CR-MET-014 companion audit). They are informational for
+# reconciliation; the metamodel's entity lifecycle field is the normative
+# expression of realization maturity.
+#
+# Schema:
+#   repo:            org repository name
+#   entities:        metamodel entity ids allocated to this repo
+#   state:           populated | skeleton | missing   (2026-10-30 audit)
+#   canonical_count: canonical records at audit, -1 when repo missing
+#   ratified:        date this register first recorded the repo
+
+register_version: 1
+snapshot_date: '2026-10-30'
+ratified_by: CR-013
+
+catalogs:
+  - repo: dea-catalog-actors
+    entities: [dea:Actor]
+    state: populated
+    canonical_count: 3
+    ratified: '2026-10-30'
+  - repo: dea-catalog-ai-ml-models
+    entities: [dea:AIMLModel]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-api-contracts
+    entities: [dea:IntegrationInterface, dea:API]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-application-components
+    entities: [dea:InformationSystemComponent, dea:ApplicationComponent, dea:InfrastructureComponent, dea:IntegrationComponent]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-blueprints
+    entities: [dea:Blueprint]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-business-capabilities
+    entities: [dea:BusinessCapability]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+    notes: 32 candidate records, 0 canonical at audit (post-reset posture).
+  - repo: dea-catalog-business-objects
+    entities: [dea:BusinessObject]
+    state: populated
+    canonical_count: 74
+    ratified: '2026-10-30'
+  - repo: dea-catalog-change-initiatives
+    entities: [dea:ChangeInitiative]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-concepts
+    entities: [dea:Concept]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-controls
+    entities: [dea:Control]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-data-entities
+    entities: [dea:DataEntity]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-data-products
+    entities: [dea:DataProduct]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-digital-business-service-factory
+    entities: [dea:BusinessService, dea:SolutionComponent]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+    notes: >-
+      Naming drift: the org's services work repo is dea-catalog-business-services;
+      the metamodel catalog_repo pointer and this register record the declared name.
+      Reconciliation is a named follow-up (CR-013 section 6; metamodel CR-MET-014 finding 2).
+  - repo: dea-catalog-digital-identities
+    entities: [dea:DigitalIdentity]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-ecosystem-platforms
+    entities: [dea:EcosystemPlatform]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-event-streams
+    entities: [dea:Event]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-experiments
+    entities: [dea:Experiment]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-financial-resources
+    entities: [dea:FinancialResource]
+    state: missing
+    canonical_count: -1
+    ratified: '2026-10-30'
+  - repo: dea-catalog-guardrails
+    entities: [dea:Guardrail]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-information-assets
+    entities: [dea:InformationAsset]
+    state: populated
+    canonical_count: 7
+    ratified: '2026-10-30'
+    notes: >-
+      Ratified at creation by this CR. Stood up 2026-10-29/30 under CR-IA-CAT-01..04;
+      classification crosswalk target side of dea-catalog-information-classes (CR-IC-CAT-05 D-6);
+      the named unblock for the capabilities U-2 realization.information residual.
+  - repo: dea-catalog-information-classes
+    entities: [dea:InformationClass]
+    state: populated
+    canonical_count: 8
+    ratified: '2026-10-30'
+    notes: First mapped-from crosswalks promoted by CR-IC-CAT-10 (2026-10-30).
+  - repo: dea-catalog-intangible-resources
+    entities: [dea:IntangibleResource]
+    state: missing
+    canonical_count: -1
+    ratified: '2026-10-30'
+  - repo: dea-catalog-investment-initiatives
+    entities: [dea:InvestmentInitiative]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-journey-touchpoints
+    entities: [dea:JourneyTouchpoint]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-knowledge-assets
+    entities: [dea:KnowledgeAsset]
+    state: missing
+    canonical_count: -1
+    ratified: '2026-10-30'
+  - repo: dea-catalog-metrics
+    entities: [dea:PerformanceMetric]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+    notes: Index file present but empty at audit; metamodel lifecycle says existing (named follow-up).
+  - repo: dea-catalog-model-deployments
+    entities: [dea:ModelDeployment, dea:ModelFeedbackSignal]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-organizational-units
+    entities: [dea:OrganizationalUnit]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-patterns
+    entities: [dea:ArchitecturePattern, dea:Technology]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-physical-resources
+    entities: [dea:PhysicalResource]
+    state: missing
+    canonical_count: -1
+    ratified: '2026-10-30'
+  - repo: dea-catalog-platform-services
+    entities: [dea:InformationSystemService, dea:PlatformService]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-processes
+    entities: [dea:BusinessProcess]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+    notes: >-
+      Naming drift: the org's processes work repo is dea-catalog-business-processes;
+      the metamodel catalog_repo pointer records the declared name dea-catalog-processes.
+      Reconciliation is a named follow-up (CR-013 section 6).
+  - repo: dea-catalog-regulations
+    entities: [dea:Regulation]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-risk-register
+    entities: [dea:Risk]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-roles
+    entities: [dea:Role]
+    state: populated
+    canonical_count: 1
+    ratified: '2026-10-30'
+  - repo: dea-catalog-signals
+    entities: [dea:Signal]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-skills
+    entities: [dea:Skill]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-stakeholders
+    entities: [dea:Stakeholder]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-strategic-objectives
+    entities: [dea:StrategicObjective]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-system-functions
+    entities: [dea:InformationSystemFunction, dea:SystemFunction]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-technology-radar
+    entities: [dea:TechnologyRadarEntry]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-tenets
+    entities: [dea:Tenet]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-10-30'
+  - repo: dea-catalog-value-streams
+    entities: [dea:ValueStream]
+    state: populated
+    canonical_count: 111
+    ratified: '2026-10-30'
+
+# Register maintenance rule (CR-013 section 5): a new catalog repository
+# MUST be recorded here in the same programme that creates it; the
+# metamodel CR that backfills entity lifecycle cites this register as its
+# observation source.
