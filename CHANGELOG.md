@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### Register v5: business-capabilities correction + infer_state exposure notes
+
+dea-catalog-business-capabilities corrected to populated (29 canonical / 3 candidates / 0 retired): the 0-canonical count behind registers v1-v4 was an upstream toolchain defect (the catalog's vendored regenerator misclassified all hyphen-named canonical records as candidates since the mv1 id migration; fixed dea-metaframework PR #58, corrected dea-catalog-business-capabilities CR-DEA-BC-61). Five owner-active repos receive steward notes flagging possible exposure to the same misclassification family; their index refreshes remain the owner's call. Verified Findings: 0 online.
+
 ### Register refresh v4 (advancement programme closure)
 
 Waves 2-4 recorded: 18 foundation-advanced kits (guardrails, strategic-objectives, risk-register, event-streams, change/investment-initiatives, journey-touchpoints, ecosystem-platforms, platform-services, api-contracts, patterns, technology-radar, ai-ml-models, experiments, model-deployments, signals, digital-identities, data-products + tenets-superseded note), 3 creations (financial/intangible/physical-resources), tenets corrected to populated (owner-side CR-TEN series, index bespoke), six owner-active repos steward-noted. Verified Findings: 0 online.

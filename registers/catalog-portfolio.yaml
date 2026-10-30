@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 4
+register_version: 5
 snapshot_date: '2026-11-02'
 ratified_by: CR-013
 
@@ -41,6 +41,10 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-application-components
+    steward_note: >-
+      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
+      this repo predates or postdates the hyphen-form layout; verify its index counts
+      against its record files before trusting state. Index refresh is the owner's call.
     notes: 'Owner-active CR-IS-CAT-02 series; records present; index refresh pending owner.'
     entities: [dea:InformationSystemComponent, dea:ApplicationComponent, dea:InfrastructureComponent, dea:IntegrationComponent]
     state: skeleton
@@ -54,10 +58,16 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-business-capabilities
     entities: [dea:BusinessCapability]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 29
     ratified: '2026-10-30'
-    notes: 32 candidate records, 0 canonical at audit (post-reset posture).
+    notes: >-
+      Corrected 2026-11-02 (register v5): the 0-canonical count behind the v1-v4
+      entries was an upstream toolchain defect - the catalog's vendored regenerator
+      misclassified all 29 canonical records as candidates since the mv1 id
+      migration (colon-form-only filename lookup; fixed dea-metaframework PR #58,
+      corrected dea-catalog-business-capabilities CR-DEA-BC-61). 29 canonical /
+      3 candidates / 0 retired at correction.
   - repo: dea-catalog-business-objects
     entities: [dea:BusinessObject]
     state: populated
@@ -179,6 +189,10 @@ catalogs:
     ratified: '2026-11-02'
     notes: Created + populated 2026-11-02 (CR-KA-CAT-01/02). Completes the dea:Information family coverage.
   - repo: dea-catalog-metrics
+    steward_note: >-
+      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
+      this repo predates or postdates the hyphen-form layout; verify its index counts
+      against its record files before trusting state. Index refresh is the owner's call.
     notes: 'Owner-active CR-MET-009/014/015 series (numbering collides lexically with dea-metamodel CR-MET; distinct repos); records present; index refresh pending owner.'
     entities: [dea:PerformanceMetric]
     state: skeleton
@@ -192,6 +206,10 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-organizational-units
+    steward_note: >-
+      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
+      this repo predates or postdates the hyphen-form layout; verify its index counts
+      against its record files before trusting state. Index refresh is the owner's call.
     notes: 'Owner-active CR-OU series; records present; index refresh pending owner.'
     entities: [dea:OrganizationalUnit]
     state: skeleton
@@ -255,6 +273,10 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-stakeholders
+    steward_note: >-
+      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
+      this repo predates or postdates the hyphen-form layout; verify its index counts
+      against its record files before trusting state. Index refresh is the owner's call.
     notes: 'Owner-active CR-CATALOG-STRUCT series; records present; index refresh pending owner.'
     entities: [dea:Stakeholder]
     state: skeleton
@@ -267,6 +289,10 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-system-functions
+    steward_note: >-
+      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
+      this repo predates or postdates the hyphen-form layout; verify its index counts
+      against its record files before trusting state. Index refresh is the owner's call.
     notes: 'Owner-active CR-IS-CAT-01 series; records present; index refresh pending owner.'
     entities: [dea:InformationSystemFunction, dea:SystemFunction]
     state: skeleton
