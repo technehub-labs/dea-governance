@@ -1,0 +1,60 @@
+name: ci
+
+# Basic repository CI for dea-governance (CR-014): the register and CR
+# corpus must parse; the authorship cardinal rule holds.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pyyaml
+      - name: Every tracked YAML file parses
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import glob, sys, yaml
+          bad = 0
+          for pattern in ("**/*.yaml", "**/*.yml"):
+              for f in glob.glob(pattern, recursive=True):
+                  if "/.git/" in f:
+                      continue
+                  try:
+                      yaml.safe_load(open(f, encoding="utf-8"))
+                  except Exception as exc:
+                      print(f"FAIL: {f}: {exc}")
+                      bad += 1
+          print(f"Findings: {bad}")
+          sys.exit(1 if bad else 0)
+          PY
+
+  authorship:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch authorship gate from dea-metaframework (pinned)
+        uses: actions/checkout@v4
+        with:
+          repository: technehub-labs/dea-metaframework
+          ref: v2.6.0
+          path: .metaframework
+      - name: Run authorship gate (CR-BP-118; AUT-001..003)
+        run: |
+          set -euo pipefail
+          mkdir -p scripts reconciliation
+          cp .metaframework/scripts/check_authorship.py scripts/
+          cp .metaframework/reconciliation/authorship-fields.yaml reconciliation/
+          python3 scripts/check_authorship.py --strict

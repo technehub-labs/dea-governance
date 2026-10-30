@@ -18,8 +18,8 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 1
-snapshot_date: '2026-10-30'
+register_version: 2
+snapshot_date: '2026-11-02'
 ratified_by: CR-013
 
 catalogs:
@@ -191,13 +191,15 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-processes
     entities: [dea:BusinessProcess]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 3722
     ratified: '2026-10-30'
     notes: >-
-      Naming drift: the org's processes work repo is dea-catalog-business-processes;
-      the metamodel catalog_repo pointer records the declared name dea-catalog-processes.
-      Reconciliation is a named follow-up (CR-013 section 6).
+      Register refreshed 2026-11-02 by the CR-014 reconciler: observed populated
+      (3,722 canonical) where the 2026-10-30 audit snapshot recorded skeleton (0).
+      The org also operates dea-catalog-business-processes; which repo is the
+      canonical home for dea:BusinessProcess remains a named follow-up
+      (CR-013 section 6; metamodel CR-MET-014 finding 2).
   - repo: dea-catalog-regulations
     entities: [dea:Regulation]
     state: skeleton

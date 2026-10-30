@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-014: Org-Level Portfolio Reconciliation CI
+
+`registers/reconcile_portfolio.py` + weekly workflow: the CR-013 register is reconciled against the metamodel allocations and GitHub reality (R1-R4), failing on drift. Basic repository CI (parse + authorship) added - the governance repo's first. First reconciler run detected real drift within 48 hours of the manual snapshot: dea-catalog-processes is populated (3,722 canonical), not skeleton; register refreshed to v2 (2026-11-02).
+
 ### CR-013: Catalog Portfolio and Ownership Register
 
 Establishes `registers/catalog-portfolio.yaml` covering all 43 catalog repositories named by metamodel `catalog_repo` values (entity allocations, observed state at the 2026-10-30 audit, ratification dates). Ratifies `dea-catalog-information-assets` at creation; names the naming-drift (processes, services) and stale-existing (BusinessService, SolutionComponent, PerformanceMetric) follow-ups; adds the register maintenance rule for future catalog creations. Companion to metamodel CR-MET-014.

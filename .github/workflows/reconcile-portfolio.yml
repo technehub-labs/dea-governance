@@ -1,0 +1,33 @@
+name: reconcile-portfolio
+
+# Org-level portfolio reconciliation CI (CR-014): the catalog-portfolio
+# register is reconciled against GitHub reality and the metamodel's
+# allocations on a weekly schedule and on demand. Drift fails the run.
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "registers/**"
+      - ".github/workflows/reconcile-portfolio.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pyyaml
+      - name: Reconcile portfolio register (R1 completeness, R2 existence, R3 state truth, R4 ownership)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 registers/reconcile_portfolio.py
