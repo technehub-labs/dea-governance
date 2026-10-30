@@ -43,19 +43,30 @@ DEFAULT_METAMODEL_URL = (
 )
 
 
-def _get(url: str, token: str | None, as_json: bool = False):
-    req = urllib.request.Request(url)
-    if token:
-        req.add_header("Authorization", f"Bearer {token}")
-    req.add_header("User-Agent", "dea-governance-portfolio-reconciler")
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            body = resp.read().decode("utf-8")
-            return json.loads(body) if as_json else body, None
-    except urllib.error.HTTPError as e:
-        return None, f"HTTP {e.code}"
-    except Exception as e:  # noqa: BLE001 - report, don't crash the run
-        return None, str(e)
+def _get(url: str, token: str | None, as_json: bool = False, retries: int = 3):
+    """Token-gated GET with retries: the GitHub API intermittently fails
+    single-flight reads (observed 2026-10-30..11-02); a finding must never
+    fire on a transport flake, so retry before reporting an outcome."""
+    import time
+
+    last = "no attempt"
+    for attempt in range(retries):
+        req = urllib.request.Request(url)
+        if token:
+            req.add_header("Authorization", f"Bearer {token}")
+        req.add_header("User-Agent", "dea-governance-portfolio-reconciler")
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                body = resp.read().decode("utf-8")
+                return json.loads(body) if as_json else body, None
+        except urllib.error.HTTPError as e:
+            if e.code in (404, 403):
+                return None, f"HTTP {e.code}"
+            last = f"HTTP {e.code}"
+        except Exception as e:  # noqa: BLE001
+            last = str(e)
+        time.sleep(2)
+    return None, last
 
 
 def main() -> int:
@@ -123,6 +134,12 @@ def main() -> int:
                 except Exception as e:  # noqa: BLE001
                     findings.append(f"R3: {repo} CATALOG.yaml does not parse ({e})")
             observed = "populated" if canonical > 0 else "skeleton"
+            if reg.get("index") == "bespoke":
+                # Pre-index repositories (e.g. dea-catalog-concepts) carry
+                # canonical records without the CATALOG.yaml discipline;
+                # their state is stewarded, not machine-observed. Index
+                # adoption removes the flag and restores R3.
+                continue
             if reg.get("state") != observed:
                 findings.append(
                     f"R3: {repo} registered state {reg.get('state')!r} but observed {observed!r} "
