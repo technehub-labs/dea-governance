@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 2
+register_version: 3
 snapshot_date: '2026-11-02'
 ratified_by: CR-013
 
@@ -66,19 +66,23 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-concepts
     entities: [dea:Concept]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 29
+    index: bespoke
     ratified: '2026-10-30'
+    notes: 'Correction 2026-11-02: the CR-MET-014 audit under-read this repo as skeleton because it predates the CATALOG.yaml index discipline; it carries 29 canonical records under its bespoke CR-CON series. Index adoption is its own follow-up.'
   - repo: dea-catalog-controls
     entities: [dea:Control]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 20
     ratified: '2026-10-30'
+    notes: Populated 2026-11-02 (CR-CTL-CAT-02); information-classes resolution active (CR-IC-CAT-11).
   - repo: dea-catalog-data-entities
     entities: [dea:DataEntity]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 9
     ratified: '2026-10-30'
+    notes: Populated 2026-11-02 (CR-DE-CAT-02; kit CR-DE-CAT-01).
   - repo: dea-catalog-data-products
     entities: [dea:DataProduct]
     state: skeleton
@@ -155,9 +159,10 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-knowledge-assets
     entities: [dea:KnowledgeAsset]
-    state: missing
-    canonical_count: -1
-    ratified: '2026-10-30'
+    state: populated
+    canonical_count: 8
+    ratified: '2026-11-02'
+    notes: Created + populated 2026-11-02 (CR-KA-CAT-01/02). Completes the dea:Information family coverage.
   - repo: dea-catalog-metrics
     entities: [dea:PerformanceMetric]
     state: skeleton
@@ -202,9 +207,10 @@ catalogs:
       (CR-013 section 6; metamodel CR-MET-014 finding 2).
   - repo: dea-catalog-regulations
     entities: [dea:Regulation]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 8
     ratified: '2026-10-30'
+    notes: Populated 2026-11-02 (CR-REG-CAT-02; the IC jurisdiction anchors).
   - repo: dea-catalog-risk-register
     entities: [dea:Risk]
     state: skeleton

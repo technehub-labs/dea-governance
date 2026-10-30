@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### Register refresh v3 + reconciler hardening (Wave 1 boundary)
+
+Register: data-entities populated (9), controls populated (20), regulations populated (8), knowledge-assets created + populated (8), concepts corrected to populated (29; bespoke pre-index layout, `index: bespoke` stewarded-state flag), processes refreshed at v2 (3,722). Reconciler: `_get` retries (the GitHub API intermittently fails single-flight reads - a finding must never fire on a transport flake); R3 skips `index: bespoke` entries until they adopt the CATALOG.yaml discipline. Verified Findings: 0 online.
+
 ### CR-014: Org-Level Portfolio Reconciliation CI
 
 `registers/reconcile_portfolio.py` + weekly workflow: the CR-013 register is reconciled against the metamodel allocations and GitHub reality (R1-R4), failing on drift. Basic repository CI (parse + authorship) added - the governance repo's first. First reconciler run detected real drift within 48 hours of the manual snapshot: dea-catalog-processes is populated (3,722 canonical), not skeleton; register refreshed to v2 (2026-11-02).
