@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 3
+register_version: 4
 snapshot_date: '2026-11-02'
 ratified_by: CR-013
 
@@ -29,21 +29,25 @@ catalogs:
     canonical_count: 3
     ratified: '2026-10-30'
   - repo: dea-catalog-ai-ml-models
+    foundation: kit landed 2026-11-02 (AIM-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:AIMLModel]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-api-contracts
+    foundation: kit landed 2026-11-02 (APC-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:IntegrationInterface, dea:API]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-application-components
+    notes: 'Owner-active CR-IS-CAT-02 series; records present; index refresh pending owner.'
     entities: [dea:InformationSystemComponent, dea:ApplicationComponent, dea:InfrastructureComponent, dea:IntegrationComponent]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-blueprints
+    notes: 'Owner-active CR-BL series (foundation-only, no records yet).'
     entities: [dea:Blueprint]
     state: skeleton
     canonical_count: 0
@@ -60,6 +64,7 @@ catalogs:
     canonical_count: 74
     ratified: '2026-10-30'
   - repo: dea-catalog-change-initiatives
+    foundation: kit landed 2026-11-02 (CHI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ChangeInitiative]
     state: skeleton
     canonical_count: 0
@@ -84,6 +89,7 @@ catalogs:
     ratified: '2026-10-30'
     notes: Populated 2026-11-02 (CR-DE-CAT-02; kit CR-DE-CAT-01).
   - repo: dea-catalog-data-products
+    foundation: kit landed 2026-11-02 (DPO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DataProduct]
     state: skeleton
     canonical_count: 0
@@ -98,31 +104,37 @@ catalogs:
       the metamodel catalog_repo pointer and this register record the declared name.
       Reconciliation is a named follow-up (CR-013 section 6; metamodel CR-MET-014 finding 2).
   - repo: dea-catalog-digital-identities
+    foundation: kit landed 2026-11-02 (DID-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DigitalIdentity]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-ecosystem-platforms
+    foundation: kit landed 2026-11-02 (ECP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:EcosystemPlatform]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-event-streams
+    foundation: kit landed 2026-11-02 (EVT-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Event]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-experiments
+    foundation: kit landed 2026-11-02 (EXP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Experiment]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-financial-resources
     entities: [dea:FinancialResource]
-    state: missing
-    canonical_count: -1
-    ratified: '2026-10-30'
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-02'
+    foundation: kit landed 2026-11-02 (FR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
   - repo: dea-catalog-guardrails
+    foundation: kit landed 2026-11-02 (GRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Guardrail]
     state: skeleton
     canonical_count: 0
@@ -144,15 +156,18 @@ catalogs:
     notes: First mapped-from crosswalks promoted by CR-IC-CAT-10 (2026-10-30).
   - repo: dea-catalog-intangible-resources
     entities: [dea:IntangibleResource]
-    state: missing
-    canonical_count: -1
-    ratified: '2026-10-30'
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-02'
+    foundation: kit landed 2026-11-02 (INR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
   - repo: dea-catalog-investment-initiatives
+    foundation: kit landed 2026-11-02 (IVI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InvestmentInitiative]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-journey-touchpoints
+    foundation: kit landed 2026-11-02 (JTP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:JourneyTouchpoint]
     state: skeleton
     canonical_count: 0
@@ -164,32 +179,38 @@ catalogs:
     ratified: '2026-11-02'
     notes: Created + populated 2026-11-02 (CR-KA-CAT-01/02). Completes the dea:Information family coverage.
   - repo: dea-catalog-metrics
+    notes: 'Owner-active CR-MET-009/014/015 series (numbering collides lexically with dea-metamodel CR-MET; distinct repos); records present; index refresh pending owner.'
     entities: [dea:PerformanceMetric]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
     notes: Index file present but empty at audit; metamodel lifecycle says existing (named follow-up).
   - repo: dea-catalog-model-deployments
+    foundation: kit landed 2026-11-02 (MDL-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ModelDeployment, dea:ModelFeedbackSignal]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-organizational-units
+    notes: 'Owner-active CR-OU series; records present; index refresh pending owner.'
     entities: [dea:OrganizationalUnit]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-patterns
+    foundation: kit landed 2026-11-02 (PAT-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ArchitecturePattern, dea:Technology]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-physical-resources
     entities: [dea:PhysicalResource]
-    state: missing
-    canonical_count: -1
-    ratified: '2026-10-30'
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-02'
+    foundation: kit landed 2026-11-02 (PHR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
   - repo: dea-catalog-platform-services
+    foundation: kit landed 2026-11-02 (ISS-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InformationSystemService, dea:PlatformService]
     state: skeleton
     canonical_count: 0
@@ -212,6 +233,7 @@ catalogs:
     ratified: '2026-10-30'
     notes: Populated 2026-11-02 (CR-REG-CAT-02; the IC jurisdiction anchors).
   - repo: dea-catalog-risk-register
+    foundation: kit landed 2026-11-02 (RSK-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Risk]
     state: skeleton
     canonical_count: 0
@@ -222,6 +244,7 @@ catalogs:
     canonical_count: 1
     ratified: '2026-10-30'
   - repo: dea-catalog-signals
+    foundation: kit landed 2026-11-02 (SIG-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Signal]
     state: skeleton
     canonical_count: 0
@@ -232,30 +255,36 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-stakeholders
+    notes: 'Owner-active CR-CATALOG-STRUCT series; records present; index refresh pending owner.'
     entities: [dea:Stakeholder]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-strategic-objectives
+    foundation: kit landed 2026-11-02 (SO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:StrategicObjective]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-system-functions
+    notes: 'Owner-active CR-IS-CAT-01 series; records present; index refresh pending owner.'
     entities: [dea:InformationSystemFunction, dea:SystemFunction]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-technology-radar
+    foundation: kit landed 2026-11-02 (TRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:TechnologyRadarEntry]
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-tenets
     entities: [dea:Tenet]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 8
     ratified: '2026-10-30'
+    index: bespoke
+    notes: 'Owner-side CR-TEN series (CR-TEN-02 populated 8 tenet records). The programme kit (CR-TNT-CAT-01, PR #6) was superseded by the owner rewrite; no programme records remain.'
   - repo: dea-catalog-value-streams
     entities: [dea:ValueStream]
     state: populated

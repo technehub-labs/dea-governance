@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### Register refresh v4 (advancement programme closure)
+
+Waves 2-4 recorded: 18 foundation-advanced kits (guardrails, strategic-objectives, risk-register, event-streams, change/investment-initiatives, journey-touchpoints, ecosystem-platforms, platform-services, api-contracts, patterns, technology-radar, ai-ml-models, experiments, model-deployments, signals, digital-identities, data-products + tenets-superseded note), 3 creations (financial/intangible/physical-resources), tenets corrected to populated (owner-side CR-TEN series, index bespoke), six owner-active repos steward-noted. Verified Findings: 0 online.
+
 ### Register refresh v3 + reconciler hardening (Wave 1 boundary)
 
 Register: data-entities populated (9), controls populated (20), regulations populated (8), knowledge-assets created + populated (8), concepts corrected to populated (29; bespoke pre-index layout, `index: bespoke` stewarded-state flag), processes refreshed at v2 (3,722). Reconciler: `_get` retries (the GitHub API intermittently fails single-flight reads - a finding must never fire on a transport flake); R3 skips `index: bespoke` entries until they adopt the CATALOG.yaml discipline. Verified Findings: 0 online.
