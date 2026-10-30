@@ -1,6 +1,6 @@
 # CR-014: Org-Level Portfolio Reconciliation CI
 
-**Status**: Proposed (this PR)
+**Status**: Landed (direct push 12c3025; process deviation recorded by the correction PR - the house PR-review convention was broken by an operator error, not bypassed deliberately)
 **Layer**: Cross-cutting (org-wide governance)
 **Owner**: Emmanuel A. Otchere
 **Date**: 2026-11-02
