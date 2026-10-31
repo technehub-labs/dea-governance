@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-017: Information Model Catalog Registration (Register v8)
+
+Registers dea-catalog-information-models (44th entry; entities [dea:InformationModel]; state skeleton) - the conceptual/logical-blueprint entity of the information family, directed by the owner and allocated in the root model (CR-AR-FMWK-15, v0.9.0). Lands in the window before metamodel CR-MET-019 so reconciler R1 never sees an unregistered catalog_repo. Reconciler verified Findings: 0.
+
 ### CR-016: Metrics Undercount Correction and Reconciler v2
 
 The owner challenged CR-015's 4,019 org total and was right: the metrics index is 4 MB and the contents API returns no body over 1 MB, so every index-based observation read metrics as empty. Corrected: dea-catalog-metrics populated with 4,428 records (bespoke index; owner split 5 admitted / 4,423 candidate), roles confirmed as a 1,252-record corpus under a bespoke schema; org-wide record census 9,699 under org-standard machinery. Reconciler v2: size-safe index reads (raw first, git-blobs fallback), bespoke-schema census cross-check, unreadable-index findings instead of silent zeros. PerformanceMetric lifecycle 'existing' vindicated; the stale-existing family shrinks to dbsf's two entities. Standing-report addendum landed.

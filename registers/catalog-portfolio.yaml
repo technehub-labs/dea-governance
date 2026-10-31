@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 7
+register_version: 8
 snapshot_date: '2026-10-31'
 ratified_by: CR-013
 
@@ -160,6 +160,16 @@ catalogs:
       Ratified at creation by this CR. Stood up 2026-10-29/30 under CR-IA-CAT-01..04;
       classification crosswalk target side of dea-catalog-information-classes (CR-IC-CAT-05 D-6);
       the named unblock for the capabilities U-2 realization.information residual.
+  - repo: dea-catalog-information-models
+    entities: [dea:InformationModel]
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-01'
+    notes: >-
+      Ratified at creation by CR-017. Stood up 2026-11-01 under the information-model
+      governance chain (root model CR-AR-FMWK-15 v0.9.0 -> metamodel CR-MET-019 -> kit
+      CR-IM-CAT-01). The conceptual/logical-blueprint entity of the information family;
+      population is evidence-gated (CR-IM-CAT-02 plan).
   - repo: dea-catalog-information-classes
     entities: [dea:InformationClass]
     state: populated
