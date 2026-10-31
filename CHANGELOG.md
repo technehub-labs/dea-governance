@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-015: Org-Wide Catalog Standing Survey
+
+docs/reports/CATALOG-STANDING-2026-10-31.md: all 43 registered catalogs observed mechanically - 13 populated carrying 4,019 canonical records; 25 skeletons (18 with the advancement-programme kit); 5 bespoke/pre-index layouts; 0 missing; 0 open candidate investigations (capabilities candidate register closed under CR-DEA-BC-68). Register v6: capabilities 29 -> 40 canonical, index: bespoke flags extended to the four remaining pre-index repos, snapshot 2026-10-31. Reconciler R1-R4 verified Findings: 0.
+
 ### Register v5: business-capabilities correction + infer_state exposure notes
 
 dea-catalog-business-capabilities corrected to populated (29 canonical / 3 candidates / 0 retired): the 0-canonical count behind registers v1-v4 was an upstream toolchain defect (the catalog's vendored regenerator misclassified all hyphen-named canonical records as candidates since the mv1 id migration; fixed dea-metaframework PR #58, corrected dea-catalog-business-capabilities CR-DEA-BC-61). Five owner-active repos receive steward notes flagging possible exposure to the same misclassification family; their index refreshes remain the owner's call. Verified Findings: 0 online.

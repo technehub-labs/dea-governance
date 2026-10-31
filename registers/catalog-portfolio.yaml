@@ -18,8 +18,8 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 5
-snapshot_date: '2026-11-02'
+register_version: 6
+snapshot_date: '2026-10-31'
 ratified_by: CR-013
 
 catalogs:
@@ -41,6 +41,7 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-application-components
+    index: bespoke
     steward_note: >-
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
       this repo predates or postdates the hyphen-form layout; verify its index counts
@@ -51,6 +52,7 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-blueprints
+    index: bespoke
     notes: 'Owner-active CR-BL series (foundation-only, no records yet).'
     entities: [dea:Blueprint]
     state: skeleton
@@ -59,15 +61,15 @@ catalogs:
   - repo: dea-catalog-business-capabilities
     entities: [dea:BusinessCapability]
     state: populated
-    canonical_count: 29
+    canonical_count: 40
     ratified: '2026-10-30'
     notes: >-
       Corrected 2026-11-02 (register v5): the 0-canonical count behind the v1-v4
       entries was an upstream toolchain defect - the catalog's vendored regenerator
       misclassified all 29 canonical records as candidates since the mv1 id
       migration (colon-form-only filename lookup; fixed dea-metaframework PR #58,
-      corrected dea-catalog-business-capabilities CR-DEA-BC-61). 29 canonical /
-      3 candidates / 0 retired at correction.
+      corrected dea-catalog-business-capabilities CR-DEA-BC-61). 40 canonical / 3 candidate-state subtrees (closed investigations,
+      CR-DEA-BC-68) / 0 retired at the 2026-10-31 standing survey.
   - repo: dea-catalog-business-objects
     entities: [dea:BusinessObject]
     state: populated
@@ -268,6 +270,7 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-skills
+    index: bespoke
     entities: [dea:Skill]
     state: skeleton
     canonical_count: 0
@@ -289,6 +292,7 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-system-functions
+    index: bespoke
     steward_note: >-
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
       this repo predates or postdates the hyphen-form layout; verify its index counts
