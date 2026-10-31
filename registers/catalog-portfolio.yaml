@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 6
+register_version: 7
 snapshot_date: '2026-10-31'
 ratified_by: CR-013
 
@@ -191,16 +191,20 @@ catalogs:
     ratified: '2026-11-02'
     notes: Created + populated 2026-11-02 (CR-KA-CAT-01/02). Completes the dea:Information family coverage.
   - repo: dea-catalog-metrics
-    steward_note: >-
-      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
-      this repo predates or postdates the hyphen-form layout; verify its index counts
-      against its record files before trusting state. Index refresh is the owner's call.
-    notes: 'Owner-active CR-MET-009/014/015 series (numbering collides lexically with dea-metamodel CR-MET; distinct repos); records present; index refresh pending owner.'
     entities: [dea:PerformanceMetric]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 4428
+    index: bespoke
     ratified: '2026-10-30'
-    notes: Index file present but empty at audit; metamodel lifecycle says existing (named follow-up).
+    notes: >-
+      Corrected 2026-10-31 (register v7; CR-016): the v1-v6 'skeleton' readings were an
+      observation defect - the index is 4 MB and the contents API returns no content for
+      files over 1 MB, so every index-based pass read it as empty. The corpus is 4,428
+      metric records (owner's own index: 5 admitted, 4,423 candidate) under a bespoke
+      index schema; org-standard machinery would classify the root-position records as
+      canonical. Reconciler v2 (size-safe index reader + bespoke-census cross-check)
+      detects this correctly. PerformanceMetric lifecycle 'existing' is thereby vindicated.
+
   - repo: dea-catalog-model-deployments
     foundation: kit landed 2026-11-02 (MDL-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ModelDeployment, dea:ModelFeedbackSignal]
@@ -262,7 +266,14 @@ catalogs:
     entities: [dea:Role]
     state: populated
     canonical_count: 1
+    index: bespoke
     ratified: '2026-10-30'
+    notes: >-
+      Register v7 (CR-016): bespoke index schema - the corpus is 1,252 records
+      (owner's own counts: 1 canonical, 1,242 proposed, 10 active). The earlier
+      'canonical 1' count is the owner index's own figure, not an org-standard
+      state computation.
+
   - repo: dea-catalog-signals
     foundation: kit landed 2026-11-02 (SIG-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Signal]

@@ -76,3 +76,25 @@ Every metamodel entity `lifecycle` value agrees with the observed state of its d
 ## 5. Method note
 
 Observation is index-based; the five bespoke repos' record presence is stewarded (register `index: bespoke`), not machine-counted. GitHub API single-flight flakes were retried; two residual flakes (processes, tenets) were corrected by direct verification and are recorded in the table's corrected totals.
+
+---
+
+## Addendum (2026-10-31, CR-016): the metrics undercount
+
+**The section-2 totals above undercounted the org by 5,679 records.** The owner challenged the total, and the investigation found a systematic observation defect, not a data reality:
+
+1. **The contents-API 1 MB limit.** The GitHub contents API returns no body content for files over 1 MB. `dea-catalog-metrics`'s CATALOG.yaml is **4,045,918 bytes (4 MB)** — every index-based pass (the original audit, this report's survey, the reconciler) decoded emptiness and counted 0 canonical. The processes index (1.7 MB) hit the same defect in the first survey pass and was hand-corrected; the failure class was not generalized until the metrics challenge.
+2. **Bespoke index schemas.** Metrics' index is not the org counts contract (`{total, admitted, candidate}`); roles' carries `{entities, canonical}` only. Both parse cleanly but do not carry org-standard state fields.
+
+**Corrected org totals (register v7):**
+
+| Metric | v6 (defective) | v7 (corrected) |
+|---|---|---|
+| dea-catalog-metrics | skeleton, 0 | **populated, 4,428 records** (owner index: 5 admitted / 4,423 candidate; bespoke schema) |
+| dea-catalog-roles | populated, 1 | **populated, 1 canonical + 1,251 in-progress** (1,252-record corpus; bespoke schema) |
+| Org-wide canonical records | 4,019 | **9,699 total records** under org-standard machinery (4,019 + 4,428 + 1,251 non-canonical corpus bodies counted separately per the bespoke schemas) |
+| Stale-`existing` trio | 3 entities | 1 case family (BusinessService, SolutionComponent at dbsf — 18 candidates, 0 canonical); **PerformanceMetric `existing` is vindicated** |
+
+**Tooling fixed in the same CR:** reconciler v2 (`registers/reconcile_portfolio.py`) — size-safe index reads (raw first, git-blobs fallback), bespoke-schema handling (filesystem census cross-check when the org counts block is absent), and honest unreadable-index findings instead of silent zeros.
+
+**Method lesson recorded:** index-based observation is only as good as the reader's size and schema assumptions. Survey surprises must be verified per-file, and "0" from a large repository is a diagnosis, not an answer.
