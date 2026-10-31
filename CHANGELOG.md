@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-016: Metrics Undercount Correction and Reconciler v2
+
+The owner challenged CR-015's 4,019 org total and was right: the metrics index is 4 MB and the contents API returns no body over 1 MB, so every index-based observation read metrics as empty. Corrected: dea-catalog-metrics populated with 4,428 records (bespoke index; owner split 5 admitted / 4,423 candidate), roles confirmed as a 1,252-record corpus under a bespoke schema; org-wide record census 9,699 under org-standard machinery. Reconciler v2: size-safe index reads (raw first, git-blobs fallback), bespoke-schema census cross-check, unreadable-index findings instead of silent zeros. PerformanceMetric lifecycle 'existing' vindicated; the stale-existing family shrinks to dbsf's two entities. Standing-report addendum landed.
+
 ### CR-015: Org-Wide Catalog Standing Survey
 
 docs/reports/CATALOG-STANDING-2026-10-31.md: all 43 registered catalogs observed mechanically - 13 populated carrying 4,019 canonical records; 25 skeletons (18 with the advancement-programme kit); 5 bespoke/pre-index layouts; 0 missing; 0 open candidate investigations (capabilities candidate register closed under CR-DEA-BC-68). Register v6: capabilities 29 -> 40 canonical, index: bespoke flags extended to the four remaining pre-index repos, snapshot 2026-10-31. Reconciler R1-R4 verified Findings: 0.

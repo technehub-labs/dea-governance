@@ -69,6 +69,51 @@ def _get(url: str, token: str | None, as_json: bool = False, retries: int = 3):
     return None, last
 
 
+def _read_index(token: str | None, repo: str):
+    """Read CATALOG.yaml size-safely (CR-016).
+
+    The contents API cannot return files over 1 MB as base64 (the metrics
+    catalog's 4 MB index read as empty and was counted as 0 canonical by
+    every index-based pass until the owner challenged the org total). The
+    git-trees + git-blobs route has no such limit and also reports ABSENT
+    distinctly. Returns (text_or_'ABSENT'_or_None, error).
+    """
+    # Route 1: raw (serves any size; reliable for the multi-MB indexes).
+    raw, err = _get(f"https://raw.githubusercontent.com/{ORG}/{repo}/main/CATALOG.yaml", token)
+    if raw is not None:
+        return raw, None
+    # Route 2: git trees + blobs (exact; but multi-MB tree payloads can
+    # truncate on flaky connections, hence the raw route first).
+    tree, terr = _get(f"{GITHUB_API}/repos/{ORG}/{repo}/git/trees/main?recursive=1", token, as_json=True)
+    if tree is None:
+        return None, f"raw: {err}; trees: {terr}"
+    entries = tree.get("tree") or []
+    if tree.get("truncated"):
+        return None, "trees: truncated"
+    target = next((e for e in entries if e.get("path") == "CATALOG.yaml"), None)
+    if target is None:
+        return "ABSENT", None
+    blob, err = _get(f"{GITHUB_API}/repos/{ORG}/{repo}/git/blobs/{target['sha']}", token, as_json=True)
+    if blob is None:
+        return None, f"blobs: {err}"
+    content = blob.get("content") or ""
+    import base64 as _b64
+    return _b64.b64decode(content).decode("utf-8", errors="replace"), None
+
+
+def _entity_file_count(token: str | None, repo: str):
+    """Count entity YAML blobs under entities/ from the same tree (cross-check)."""
+    tree, err = _get(f"{GITHUB_API}/repos/{ORG}/{repo}/git/trees/main?recursive=1", token, as_json=True)
+    if tree is None:
+        return None, err
+    entries = tree.get("tree") or []
+    return sum(
+        1 for e in entries
+        if e.get("type") == "blob" and e.get("path", "").startswith("entities/")
+        and e.get("path", "").endswith((".yaml", ".yml"))
+    ), None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--register", type=Path, default=REPO / "registers" / "catalog-portfolio.yaml")
@@ -123,14 +168,25 @@ def main() -> int:
             if reg.get("state") == "missing":
                 findings.append(f"R2: repo {repo} exists but is registered as missing")
                 continue
-            cat_text, _ = _get(
-                f"https://raw.githubusercontent.com/{ORG}/{repo}/main/CATALOG.yaml", token
-            )
+            cat_text, err = _read_index(token, repo)
             canonical = 0
-            if cat_text is not None:
+            if cat_text == "ABSENT":
+                canonical = 0
+            elif cat_text is None:
+                findings.append(f"R3: {repo} index unreadable ({err})")
+            else:
                 try:
                     cat = yaml.safe_load(cat_text) or {}
-                    canonical = int(((cat.get("catalog") or {}).get("counts") or {}).get("canonical") or 0)
+                    counts = (cat.get("catalog") or {}).get("counts") or {}
+                    canonical = int(counts.get("canonical") or 0)
+                    entity_records = len(cat.get("catalog", {}).get("entities") or [])
+                    if "canonical" not in counts:
+                        # Bespoke index schema (e.g. metrics, roles): the org
+                        # counts block is absent. Cross-check against the
+                        # filesystem census instead of reading a zero.
+                        file_count, ferr = _entity_file_count(token, repo)
+                        if file_count:
+                            canonical = file_count
                 except Exception as e:  # noqa: BLE001
                     findings.append(f"R3: {repo} CATALOG.yaml does not parse ({e})")
             observed = "populated" if canonical > 0 else "skeleton"
