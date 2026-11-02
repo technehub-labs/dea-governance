@@ -4,6 +4,11 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### Understanding OpenDEA: A Plain-Language Guide
+
+New `docs/understanding-opendea.md`: a non-technical guide to the entity system. Explains the information family (Business Object -> Information Model -> Data Entity -> Information Asset, with Information Class as the overlay), the commercial decomposition chain (Agreement -> Offering -> Product -> Service -> Resource -> Entity), the other entity families, the evidence ladder, and the key org-wide numbers. Written for both technical and non-technical audiences.
+
+
 ### CR-017: Information Model Catalog Registration (Register v8)
 
 Registers dea-catalog-information-models (44th entry; entities [dea:InformationModel]; state skeleton) - the conceptual/logical-blueprint entity of the information family, directed by the owner and allocated in the root model (CR-AR-FMWK-15, v0.9.0). Lands in the window before metamodel CR-MET-019 so reconciler R1 never sees an unregistered catalog_repo. Reconciler verified Findings: 0.
