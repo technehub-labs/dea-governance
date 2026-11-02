@@ -32,6 +32,8 @@ The general entity system governs identity and conformance across all catalogs; 
 
 ## Repository structure
 
+The `registers/` directory holds the catalog-portfolio register (CR-013, v8: 44 entries) reconciled weekly against GitHub reality (CR-014).
+
 ```
 dea-governance/
 ├── README.md                                 # this file
