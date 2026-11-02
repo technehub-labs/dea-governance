@@ -162,8 +162,8 @@ catalogs:
       the named unblock for the capabilities U-2 realization.information residual.
   - repo: dea-catalog-information-models
     entities: [dea:InformationModel]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 74
     ratified: '2026-11-01'
     notes: >-
       Ratified at creation by CR-017. Stood up 2026-11-01 under the information-model
