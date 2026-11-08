@@ -18,8 +18,8 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 8
-snapshot_date: '2026-10-31'
+register_version: 9
+snapshot_date: '2026-11-08'
 ratified_by: CR-013
 
 catalogs:
@@ -297,15 +297,23 @@ catalogs:
     canonical_count: 0
     ratified: '2026-10-30'
   - repo: dea-catalog-stakeholders
-    steward_note: >-
-      Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
-      this repo predates or postdates the hyphen-form layout; verify its index counts
-      against its record files before trusting state. Index refresh is the owner's call.
-    notes: 'Owner-active CR-CATALOG-STRUCT series; records present; index refresh pending owner.'
     entities: [dea:Stakeholder]
-    state: skeleton
-    canonical_count: 0
-    ratified: '2026-10-30'
+    state: populated
+    canonical_count: 11
+    ratified: '2026-11-08'
+    notes: >-
+      Owner directive 2026-11-08: advanced to active + enriched. First canonical
+      tranche CR-CATALOG-STRUCT-14 (PR #17): 11 records — 3 organisation/governance/
+      community capacities + 8 regulators one-to-one with the regulations catalog's
+      active records; population contract docs/FOUNDATIONS.md + docs/RECORD-STANDARD.md
+      (CR-CATALOG-STRUCT-13, PR #16); foundation modernized to OpenDEAM v0.9.0 pin +
+      metamodel v1.0.0 schema projection with the regenerator re-vendored carrying the
+      hyphen-form infer_state fix (CR-CATALOG-STRUCT-12, PR #15). Lifecycle mirrors
+      promoted: dea-architecture-framework CR-AR-FMWK-16 (v0.9.1, PR #35) + dea-metamodel
+      CR-MET-021 (PR #210). The prior steward_note's infer_state exposure is RESOLVED by
+      the CR-CATALOG-STRUCT-12 re-vendor (upstream metaframework PR #58 fix); its
+      "records present" clause was inaccurate — contributions/ was empty at that time
+      (survey false-positive class); counts now verified against the regenerated index.
   - repo: dea-catalog-strategic-objectives
     foundation: kit landed 2026-11-02 (SO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:StrategicObjective]

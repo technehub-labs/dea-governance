@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-018: Stakeholders Populated (Register v9)
+
+The Stakeholders catalog advanced to an active, enriched state under the owner's 2026-11-08 directive: first canonical tranche of 11 records — 3 organisation/governance/community capacities (GitHub Inc. as platform supplier, the OSS community, the owner's governing-board capacity) + 8 regulators one-to-one with the regulations catalog's eight active records (7 `enforces` + PCI SSC's `publishes`) — behind a population contract (`docs/FOUNDATIONS.md`, `docs/RECORD-STANDARD.md`, candidate register with honest zeros) and a foundation modernization (OpenDEAM v0.9.0 pin, metamodel v1.0.0 schema projection, regenerator re-vendored with the hyphen-form infer_state fix — resolving the steward_note's exposure; its "records present" clause recorded as inaccurate). Register row `dea-catalog-stakeholders` -> `state: populated`, `canonical_count: 11`; `register_version` 8 -> 9; snapshot 2026-11-08. Lifecycle mirrors promoted root-model CR-AR-FMWK-16 (v0.9.1) + metamodel CR-MET-021. Reconciler Findings: 0.
+
 ### Understanding OpenDEA: A Plain-Language Guide
 
 New `docs/understanding-opendea.md`: a non-technical guide to the entity system. Explains the information family (Business Object -> Information Model -> Data Entity -> Information Asset, with Information Class as the overlay), the commercial decomposition chain (Agreement -> Offering -> Product -> Service -> Resource -> Entity), the other entity families, the evidence ladder, and the key org-wide numbers. Written for both technical and non-technical audiences.
