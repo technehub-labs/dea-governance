@@ -13,8 +13,12 @@ and against the canonical metamodel's catalog_repo allocations:
                     missing requires the repo to be absent)
   R4 ownership      every metamodel entity allocated to a registered repo
                     appears in that repo's register entities list
+  R5 directory-size no tracked directory holds 800+ entries (the §4 shard
+                    trigger of entity-storage-layout.md; GitHub truncates
+                    directory listings at 1,000); 500+ entries print a
+                    watch warning without failing
 
-Fails (exit 1) on any finding. Offline mode (no GITHUB_TOKEN): skips R2/R3
+Fails (exit 1) on any finding. Offline mode (no GITHUB_TOKEN): skips R2/R3/R5
 with a warning, still enforces R1/R4 from the vendored inputs.
 
 Usage:
@@ -41,6 +45,15 @@ ORG = "technehub-labs"
 DEFAULT_METAMODEL_URL = (
     "https://raw.githubusercontent.com/technehub-labs/dea-metamodel/main/metamodel/dea-metamodel.yaml"
 )
+
+# entity-storage-layout.md §4 (R5, CR-019): GitHub truncates a directory
+# listing at 1,000 entries; the ratified contract shards before any
+# directory approaches 800. 500+ prints a watch warning without failing,
+# so a fast-growing intake surfaces in the weekly output early. The
+# census counts git-tracked entries only (the git tree IS the tracked
+# content), so local-only noise such as an untracked .venv never counts.
+R5_WATCH_ENTRIES = 500
+R5_SHARD_TRIGGER = 800
 
 
 def _get(url: str, token: str | None, as_json: bool = False, retries: int = 3):
@@ -114,6 +127,51 @@ def _entity_file_count(token: str | None, repo: str):
     ), None
 
 
+def _entry_counts_from_tree_entries(entries: list[dict]) -> dict[str, int]:
+    """Immediate-entry count per directory from a recursive git-tree
+    payload's `tree` list (pure; unit-tested).
+
+    An entry is what a GitHub directory listing shows: a file or a
+    subdirectory directly inside it. Blobs contribute one entry to their
+    parent; directories are derived once from the path prefixes of the
+    listed paths (the payload's explicit `tree` objects are NOT counted
+    again, or every subdirectory would count twice). The repo root is
+    keyed as ''. Submodule entries (type commit) are skipped: no catalog
+    repo uses them, and a recursive tree lists no blobs beneath one.
+    """
+    counts: dict[str, int] = {}
+    dirs: set[str] = set()
+    for entry in entries:
+        path = entry.get("path") or ""
+        if not path:
+            continue
+        parts = path.split("/")
+        for i in range(1, len(parts)):
+            dirs.add("/".join(parts[:i]))
+        if entry.get("type") == "blob":
+            parent = "/".join(parts[:-1])
+            counts[parent] = counts.get(parent, 0) + 1
+    for d in dirs:
+        parent = d.rsplit("/", 1)[0] if "/" in d else ""
+        counts[parent] = counts.get(parent, 0) + 1
+    return counts
+
+
+def _directory_entry_counts(token: str | None, repo: str):
+    """Immediate-entry census per directory from the recursive git tree
+    (R5, CR-019). Returns (counts, error).
+
+    A truncated tree payload returns an error rather than a partial
+    census: a finding must never fire on incomplete data.
+    """
+    tree, err = _get(f"{GITHUB_API}/repos/{ORG}/{repo}/git/trees/main?recursive=1", token, as_json=True)
+    if tree is None:
+        return None, err
+    if tree.get("truncated"):
+        return None, "trees: truncated"
+    return _entry_counts_from_tree_entries(tree.get("tree") or []), None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--register", type=Path, default=REPO / "registers" / "catalog-portfolio.yaml")
@@ -168,6 +226,24 @@ def main() -> int:
             if reg.get("state") == "missing":
                 findings.append(f"R2: repo {repo} exists but is registered as missing")
                 continue
+            # R5 directory-size audit (CR-019). Runs before the index read
+            # so bespoke-index repos (metrics, roles) are audited too; a
+            # truncated tree payload warns and skips rather than fail.
+            counts, err = _directory_entry_counts(token, repo)
+            if counts is None:
+                print(f"WARN: R5 skipped for {repo} ({err})")
+            else:
+                for d in sorted(counts, key=lambda x: (-counts[x], x)):
+                    n = counts[d]
+                    if n >= R5_SHARD_TRIGGER:
+                        findings.append(
+                            f"R5: {repo}/{d or '<root>'} holds {n} entries "
+                            f"(entity-storage-layout §4 shard trigger {R5_SHARD_TRIGGER}; "
+                            f"GitHub truncates listings at 1,000); introduce a shard "
+                            f"(CR-MET-024 recipe)"
+                        )
+                    elif n >= R5_WATCH_ENTRIES:
+                        print(f"WARN: R5 watch: {repo}/{d or '<root>'} holds {n} entries")
             cat_text, err = _read_index(token, repo)
             canonical = 0
             if cat_text == "ABSENT":

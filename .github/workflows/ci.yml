@@ -38,6 +38,18 @@ jobs:
           sys.exit(1 if bad else 0)
           PY
 
+  reconciler-units:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pyyaml pytest
+      - name: Reconciler unit tests (R5 census semantics; CR-019)
+        run: python3 -m pytest -q registers/test_reconcile_directory_counts.py
+
   authorship:
     runs-on: ubuntu-latest
     steps:
