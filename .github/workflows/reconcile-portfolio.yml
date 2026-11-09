@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install pyyaml
-      - name: Reconcile portfolio register (R1 completeness, R2 existence, R3 state truth, R4 ownership)
+      - name: Reconcile portfolio register (R1 completeness, R2 existence, R3 state truth, R4 ownership, R5 directory-size)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 registers/reconcile_portfolio.py

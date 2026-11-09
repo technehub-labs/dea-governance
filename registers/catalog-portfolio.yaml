@@ -18,8 +18,8 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 9
-snapshot_date: '2026-11-08'
+register_version: 10
+snapshot_date: '2026-11-10'
 ratified_by: CR-013
 
 catalogs:
@@ -211,8 +211,10 @@ catalogs:
       observation defect - the index is 4 MB and the contents API returns no content for
       files over 1 MB, so every index-based pass read it as empty. The corpus is 4,428
       metric records (owner's own index: 5 admitted, 4,423 candidate) under a bespoke
-      index schema; org-standard machinery would classify the root-position records as
-      canonical. Reconciler v2 (size-safe index reader + bespoke-census cross-check)
+      index schema; org-standard machinery would classify the records as canonical
+      ("root-position records" in the v7-v9 wording is stale since CR-MET-024 sharded
+      the corpus under entities/v1-alpha/<letter>/; note wording repaired 2026-11-10,
+      CR-019). Reconciler v2 (size-safe index reader + bespoke-census cross-check)
       detects this correctly. PerformanceMetric lifecycle 'existing' is thereby vindicated.
 
   - repo: dea-catalog-model-deployments
