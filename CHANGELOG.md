@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-021: Org-Wide Pin-Truth Audit (Reconciler R6)
+
+The reconciler gains R6: every registered repo's CI workflows are scanned (same tree fetch as R5; file bodies off the raw route) and every `technehub-labs/dea-metaframework` checkout ref is verified against the real tag set; a release-tag pin that does not exist is a FAIL finding (the 404 class: 2026-11-11 a consumer pinned v2.8.0 before the release was cut and 404'd org-visibly until the tag landed), a checkout naming the upstream without a release-tag ref prints a floating-pin watch. Extraction is step-scoped (CST-013 semantics; root-model allocation pins never mistaken) in a pure 5-test function (registers/test_reconcile_pins.py). First live run: 0 R6 findings (all pins resolve, including stakeholders' v2.8.0 post-release-cut), 1 floating-pin watch (dea-catalog-organizational-units); R1..R5 unchanged (roles finding, metrics watch, R3 green on register v11). PR-time counterpart: metaframework CR-CATALOG-STRUCT-13 `pins-resolve` job. Tag list fetched once per run; transport failures warn-and-skip.
+
 ### CR-020: Business Services Populated (Register v11)
 
 The DBSF register row reconciles to the observed truth: dea-catalog-digital-business-service-factory -> state populated, canonical_count 535; register_version 10 -> 11. The skeleton reading was green only against a lying index: the services repo's vendored regenerator probed the colon-form entity yaml name while every record file is hyphen-form, so all 535 CR-SVC-004-admitted canonical records classified candidate. dea-catalog-business-services CR-SVC-016 re-vendors the v2.7.0 regenerator (hyphen-form infer_state repair, the stakeholders CR-CATALOG-STRUCT-12 defect family), the index now reads canonical 535 / candidates 0, and the same CR's shard move cleared the repo's two R5 watch findings (entities 536 -> 25 entries, queue 518 -> 24). Lands after CR-SVC-016; naming-drift reconciliation remains the CR-013 section 6 follow-up. Reconciler: 0 findings for this repo's rows.
