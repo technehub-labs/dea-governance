@@ -18,7 +18,7 @@
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
 
-register_version: 10
+register_version: 11
 snapshot_date: '2026-11-10'
 ratified_by: CR-013
 
@@ -108,13 +108,21 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-digital-business-service-factory
     entities: [dea:BusinessService, dea:SolutionComponent]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 535
     ratified: '2026-10-30'
     notes: >-
-      Naming drift: the org's services work repo is dea-catalog-business-services;
-      the metamodel catalog_repo pointer and this register record the declared name.
-      Reconciliation is a named follow-up (CR-013 section 6; metamodel CR-MET-014 finding 2).
+      Refreshed 2026-11-10 (register v11; CR-020): the repo's index flipped to
+      truthful canonical counts when dea-catalog-business-services CR-SVC-016
+      re-vendored the v2.7.0 regenerator (the hyphen-form infer_state repair;
+      the old index read candidates: 535 because the colon-form canonical-file
+      probe never matched the hyphen-form filenames). All 535 records were
+      admitted canonical through the CR-SVC-004 8-step admission gate; the
+      skeleton reading was green only against the lying index. Naming drift:
+      the org's services work repo is dea-catalog-business-services; the
+      metamodel catalog_repo pointer and this register record the declared
+      name. Reconciliation is a named follow-up (CR-013 section 6; metamodel
+      CR-MET-014 finding 2).
   - repo: dea-catalog-digital-identities
     foundation: kit landed 2026-11-02 (DID-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DigitalIdentity]
