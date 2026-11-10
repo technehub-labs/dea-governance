@@ -49,6 +49,8 @@ jobs:
         run: pip install pyyaml pytest
       - name: Reconciler unit tests (R5 census semantics; CR-019)
         run: python3 -m pytest -q registers/test_reconcile_directory_counts.py
+      - name: Reconciler unit tests (R6 pin extraction; CR-021)
+        run: python3 -m pytest -q registers/test_reconcile_pins.py
 
   authorship:
     runs-on: ubuntu-latest

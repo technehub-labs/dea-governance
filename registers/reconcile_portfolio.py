@@ -17,8 +17,13 @@ and against the canonical metamodel's catalog_repo allocations:
                     trigger of entity-storage-layout.md; GitHub truncates
                     directory listings at 1,000); 500+ entries print a
                     watch warning without failing
+  R6 pin-truth      every metaframework release tag pinned by a repo's CI
+                    workflows exists on dea-metaframework (a pin merged
+                    ahead of its release 404s at checkout); a workflow
+                    naming the metaframework checkout without a release
+                    tag ref prints a floating-pin watch without failing
 
-Fails (exit 1) on any finding. Offline mode (no GITHUB_TOKEN): skips R2/R3/R5
+Fails (exit 1) on any finding. Offline mode (no GITHUB_TOKEN): skips R2/R3/R5/R6
 with a warning, still enforces R1/R4 from the vendored inputs.
 
 Usage:
@@ -33,6 +38,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
 import urllib.request
 from pathlib import Path
@@ -54,6 +60,19 @@ DEFAULT_METAMODEL_URL = (
 # content), so local-only noise such as an untracked .venv never counts.
 R5_WATCH_ENTRIES = 500
 R5_SHARD_TRIGGER = 800
+
+# R6 pin-truth (CR-021): the metaframework toolchain is tag-pinned across
+# the org (CST-013/014); a pin merged ahead of its release 404s at every
+# consumer checkout (observed 2026-11-11: a consumer pinned v2.8.0 the
+# day the release was not yet cut). R6 verifies each release-tag pin
+# against dea-metaframework's real tag set; a checkout naming the
+# upstream without a release-tag ref is a floating pin ( CST-013 fails
+# it at PR time in conformant repos) and prints a watch here.
+META_REPOSITORY = "technehub-labs/dea-metaframework"
+_META_STEP_SPLIT_RE = re.compile(r"(?=\n\s*-?\s*uses:)")
+_META_REPO_RE = re.compile(rf"repository:\s*{re.escape(META_REPOSITORY)}")
+_META_REF_RE = re.compile(r"^\s*ref:\s*[\"']?([^\s\"'#]+)", re.MULTILINE)
+_TAG_REF_RE = re.compile(r"^v\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
 
 
 def _get(url: str, token: str | None, as_json: bool = False, retries: int = 3):
@@ -157,19 +176,80 @@ def _entry_counts_from_tree_entries(entries: list[dict]) -> dict[str, int]:
     return counts
 
 
-def _directory_entry_counts(token: str | None, repo: str):
-    """Immediate-entry census per directory from the recursive git tree
-    (R5, CR-019). Returns (counts, error).
+def _fetch_tree(token: str | None, repo: str):
+    """Recursive git tree of `main`; returns (tree_list_or_None, error).
 
-    A truncated tree payload returns an error rather than a partial
-    census: a finding must never fire on incomplete data.
+    Shared by the R5 census and the R6 pin scan so one fetch serves both.
+    A truncated payload returns an error rather than partial data: a
+    finding must never fire on incomplete data.
     """
     tree, err = _get(f"{GITHUB_API}/repos/{ORG}/{repo}/git/trees/main?recursive=1", token, as_json=True)
     if tree is None:
         return None, err
     if tree.get("truncated"):
         return None, "trees: truncated"
-    return _entry_counts_from_tree_entries(tree.get("tree") or []), None
+    return tree.get("tree") or [], None
+
+
+def _directory_entry_counts(tree_entries: list[dict]) -> dict[str, int]:
+    """Immediate-entry census per directory from a fetched tree (R5)."""
+    return _entry_counts_from_tree_entries(tree_entries)
+
+
+def _extract_metaframework_pins(text: str) -> tuple[list[str], bool]:
+    """Metaframework checkout refs in one workflow's text (pure; tested).
+
+    Returns (release_tag_pins, has_metaframework_checkout_without_tag).
+    A `ref:` counts only inside a step that names the upstream
+    repository, so a root-model allocation pin is never mistaken for a
+    metaframework pin. Branch refs and missing refs make the second
+    element True (floating-pin watch, CR-021); release-tag refs come
+    back in the list.
+    """
+    tag_pins: list[str] = []
+    floating = False
+    saw_metaframework = False
+    for block in _META_STEP_SPLIT_RE.split(text):
+        if not _META_REPO_RE.search(block):
+            continue
+        saw_metaframework = True
+        refs = _META_REF_RE.findall(block)
+        if not refs:
+            floating = True
+        for ref in refs:
+            if _TAG_REF_RE.match(ref):
+                tag_pins.append(ref)
+            else:
+                floating = True
+    if saw_metaframework and floating:
+        return tag_pins, True
+    return tag_pins, False
+
+
+def _fetch_raw_file(token: str | None, repo: str, path: str):
+    """One file off `main` via raw.githubusercontent (size-safe route)."""
+    raw, err = _get(f"https://raw.githubusercontent.com/{ORG}/{repo}/main/{path}", token)
+    return raw, err
+
+
+def _fetch_metaframework_tags(token: str | None):
+    """All release tags on dea-metaframework (paginated), or
+    (None, error) on transport failure."""
+    tags: set[str] = set()
+    for page in (1, 2):
+        data, err = _get(
+            f"{GITHUB_API}/repos/{ORG}/dea-metaframework/tags?per_page=100&page={page}",
+            token, as_json=True,
+        )
+        if data is None:
+            return None, err
+        names = [t.get("name") for t in data if isinstance(t, dict) and t.get("name")]
+        if not names and page == 1:
+            break
+        tags.update(n for n in names if _TAG_REF_RE.match(n))
+        if len(names) < 100:
+            break
+    return tags, None
 
 
 def main() -> int:
@@ -214,8 +294,11 @@ def main() -> int:
 
     # R2/R3 existence + state (online only)
     if not token:
-        print("WARN: no GITHUB_TOKEN/GH_TOKEN; R2/R3 skipped (offline mode)")
+        print("WARN: no GITHUB_TOKEN/GH_TOKEN; R2/R3/R5/R6 skipped (offline mode)")
     else:
+        meta_tags, merr = _fetch_metaframework_tags(token)
+        if meta_tags is None:
+            print(f"WARN: R6 skipped (metaframework tag list unavailable: {merr})")
         for repo, reg in sorted(entries.items()):
             api, err = _get(f"{GITHUB_API}/repos/{ORG}/{repo}", token, as_json=True)
             if api is None:
@@ -226,13 +309,15 @@ def main() -> int:
             if reg.get("state") == "missing":
                 findings.append(f"R2: repo {repo} exists but is registered as missing")
                 continue
-            # R5 directory-size audit (CR-019). Runs before the index read
-            # so bespoke-index repos (metrics, roles) are audited too; a
+            # R5 directory-size audit (CR-019) + R6 pin-truth (CR-021),
+            # off one tree fetch. Run before the index read so
+            # bespoke-index repos (metrics, roles) are audited too; a
             # truncated tree payload warns and skips rather than fail.
-            counts, err = _directory_entry_counts(token, repo)
-            if counts is None:
-                print(f"WARN: R5 skipped for {repo} ({err})")
+            tree_entries, err = _fetch_tree(token, repo)
+            if tree_entries is None:
+                print(f"WARN: R5/R6 skipped for {repo} ({err})")
             else:
+                counts = _directory_entry_counts(tree_entries)
                 for d in sorted(counts, key=lambda x: (-counts[x], x)):
                     n = counts[d]
                     if n >= R5_SHARD_TRIGGER:
@@ -244,6 +329,31 @@ def main() -> int:
                         )
                     elif n >= R5_WATCH_ENTRIES:
                         print(f"WARN: R5 watch: {repo}/{d or '<root>'} holds {n} entries")
+                if meta_tags is not None:
+                    wf_paths = sorted(
+                        e["path"] for e in tree_entries
+                        if e.get("type") == "blob"
+                        and e.get("path", "").startswith(".github/workflows/")
+                        and e.get("path", "").endswith((".yml", ".yaml"))
+                    )
+                    for wf_path in wf_paths:
+                        text, werr = _fetch_raw_file(token, repo, wf_path)
+                        if text is None:
+                            print(f"WARN: R6 skipped {repo}/{wf_path} ({werr})")
+                            continue
+                        tag_pins, floating = _extract_metaframework_pins(text)
+                        for pin in tag_pins:
+                            if pin not in meta_tags:
+                                findings.append(
+                                    f"R6: {repo} pins nonexistent metaframework release tag "
+                                    f"{pin} in {wf_path} (checkout will 404); cut the release "
+                                    f"first, then bump the pin"
+                                )
+                        if floating:
+                            print(
+                                f"WARN: R6 floating pin: {repo}/{wf_path} names "
+                                f"{META_REPOSITORY} without a release-tag ref"
+                            )
             cat_text, err = _read_index(token, repo)
             canonical = 0
             if cat_text == "ABSENT":
