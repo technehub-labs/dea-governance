@@ -41,6 +41,12 @@ catalogs:
       layout yet (no entities/, no CATALOG.yaml at the 2026-11-11/12 portfolio
       sweep): 'Agent Foundry — catalogue of autonomous agent patterns'. No
       metamodel entity allocation yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-ai-ml-models
     foundation: kit landed 2026-11-02 (AIM-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:AIMLModel]
@@ -50,9 +56,17 @@ catalogs:
   - repo: dea-catalog-api-contracts
     foundation: kit landed 2026-11-02 (APC-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:IntegrationInterface, dea:API]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 627
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-12 (register v12 amendment; CR-022A): the row's v12
+      skeleton reading was stale within hours — owner CR-API-CAT-02 (PR #3,
+      merged 2026-11-12 15:58 +08:00) landed 627 canonical API contract
+      records after the CR-022 snapshot was taken. Discovered at CR-022 §4
+      verification (reconciler R3 observed populated canonical=627).
+      R5 watch on entities/v1-alpha at 628 entries (below the 800 shard
+      trigger).
   - repo: dea-catalog-application-components
     index: bespoke
     steward_note: >-
@@ -244,6 +258,12 @@ catalogs:
       tree API returns 409). 'Canonical catalogue for the Infrastructure
       Component (IFC) entity' per its description. No metamodel entity
       allocation recorded here yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-intangible-resources
     entities: [dea:IntangibleResource]
     state: skeleton
@@ -261,6 +281,12 @@ catalogs:
       tree API returns 409). 'Canonical catalogue for the Integration Interface
       (II) entity' per its description. No metamodel entity allocation recorded
       here yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-investment-initiatives
     foundation: kit landed 2026-11-02 (IVI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InvestmentInitiative]
@@ -311,6 +337,12 @@ catalogs:
       Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
       No catalog layout yet: 'Domain OWL/RDF ontologies — fintech and healthcare.
       DEA L1 catalog repository.' No metamodel entity allocation yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-organizational-units
     steward_note: >-
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
@@ -341,6 +373,12 @@ catalogs:
       realization: no metamodel entity allocation, no catalog layout, and no
       reconciliation expectation. The archived key is informational (v12 schema
       note); the reconciler does not read it.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-physical-resources
     entities: [dea:PhysicalResource]
     state: skeleton
@@ -362,6 +400,12 @@ catalogs:
       Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
       No catalog layout yet: 'Digital Enterprise Reference Architecture —
       canonical reference model'. No metamodel entity allocation yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-references
     entities: []
     state: skeleton
@@ -416,6 +460,12 @@ catalogs:
       Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
       No catalog layout yet: 'Solution Hub — catalogue of solution archetypes,
       delivery templates'. No metamodel entity allocation yet.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-stakeholders
     entities: [dea:Stakeholder]
     state: populated
@@ -464,6 +514,12 @@ catalogs:
       realization: no metamodel entity allocation, no catalog layout, and no
       reconciliation expectation. The archived key is informational (v12 schema
       note); the reconciler does not read it.
+      R2 note (CR-022A): this repository is private; the weekly
+      reconciler's default workflow token cannot verify it, so R2 reports
+      'does not exist' (a 404 is indistinguishable from no-access).
+      Documented red-by-design on this row until it is made public or the
+      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
+      precedent resolves the finding class.
   - repo: dea-catalog-technology-radar
     foundation: kit landed 2026-11-02 (TRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:TechnologyRadarEntry]
