@@ -17,9 +17,11 @@
 #   state:           populated | skeleton | missing   (2026-10-30 audit)
 #   canonical_count: canonical records at audit, -1 when repo missing
 #   ratified:        date this register first recorded the repo
+#   archived:        informational only (v12, CR-022): true when the GitHub
+#                    repo is archived; the reconciler does not read this key
 
-register_version: 11
-snapshot_date: '2026-11-10'
+register_version: 12
+snapshot_date: '2026-11-12'
 ratified_by: CR-013
 
 catalogs:
@@ -28,6 +30,17 @@ catalogs:
     state: populated
     canonical_count: 3
     ratified: '2026-10-30'
+  - repo: dea-catalog-agent-foundry
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022) per the CR-013 §5 maintenance
+      rule, scope broadened to all org catalog-named repositories. No catalog
+      layout yet (no entities/, no CATALOG.yaml at the 2026-11-11/12 portfolio
+      sweep): 'Agent Foundry — catalogue of autonomous agent patterns'. No
+      metamodel entity allocation yet.
   - repo: dea-catalog-ai-ml-models
     foundation: kit landed 2026-11-02 (AIM-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:AIMLModel]
@@ -75,6 +88,47 @@ catalogs:
     state: populated
     canonical_count: 74
     ratified: '2026-10-30'
+  - repo: dea-catalog-business-processes
+    entities: [dea:BusinessProcess]
+    state: populated
+    canonical_count: 3722
+    ratified: '2026-10-30'
+    notes: >-
+      Renamed 2026-11-12 (register v12; CR-022): the row key moves from the
+      declared name dea-catalog-processes to the real org repo name
+      dea-catalog-business-processes (the GitHub rename is live; the old name
+      survives only as a redirect), resolving the CR-013 §4 finding 1 question
+      of which repo is the canonical home for dea:BusinessProcess — this one
+      (3,723-record corpus, v0.5.0 released 2026-11-07, CR-BP-30h). Index-truth
+      verdict recorded 2026-11-12 (register v12; CR-022 §4, CR-016 precedent):
+      the index's canonical: 3722 alongside record files carrying
+      lifecycle_status: candidate is the truthful reading, NOT an inverted
+      CR-SVC-016-family defect. In this repo state (canonical) is a
+      containment-slot axis — parseable record in the entities tree, not
+      deprecated/retired (regenerate_catalog.py infer_state; index
+      CI-enforced byte-identical via regenerate_catalog.py --check, verified
+      exit 0 on 2026-11-12) — while lifecycle_status: candidate is the
+      sanctioned record-lifecycle value (CR-BP-34c LCM-001; active is not in
+      this repo's record vocabulary). External observers must not read the
+      combination as index/files disagreement.
+  - repo: dea-catalog-business-services
+    entities: [dea:BusinessService, dea:SolutionComponent]
+    state: populated
+    canonical_count: 535
+    ratified: '2026-10-30'
+    notes: >-
+      Renamed 2026-11-12 (register v12; CR-022): the row key moves from the
+      declared name dea-catalog-digital-business-service-factory to the real
+      org repo name dea-catalog-business-services (the GitHub rename is live;
+      the old name survives only as a redirect). Companion metamodel repoint
+      CR-MET-022 landed first so reconciler R1 never saw an unregistered
+      catalog_repo value. History: the repo's index flipped to truthful
+      canonical counts when this repo's CR-SVC-016 re-vendored the v2.7.0
+      regenerator (the hyphen-form infer_state repair; the old index read
+      candidates: 535 because the colon-form canonical-file probe never
+      matched the hyphen-form filenames). All 535 records were admitted
+      canonical through the CR-SVC-004 8-step admission gate; the skeleton
+      reading was green only against the lying index.
   - repo: dea-catalog-change-initiatives
     foundation: kit landed 2026-11-02 (CHI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ChangeInitiative]
@@ -106,23 +160,6 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
-  - repo: dea-catalog-digital-business-service-factory
-    entities: [dea:BusinessService, dea:SolutionComponent]
-    state: populated
-    canonical_count: 535
-    ratified: '2026-10-30'
-    notes: >-
-      Refreshed 2026-11-10 (register v11; CR-020): the repo's index flipped to
-      truthful canonical counts when dea-catalog-business-services CR-SVC-016
-      re-vendored the v2.7.0 regenerator (the hyphen-form infer_state repair;
-      the old index read candidates: 535 because the colon-form canonical-file
-      probe never matched the hyphen-form filenames). All 535 records were
-      admitted canonical through the CR-SVC-004 8-step admission gate; the
-      skeleton reading was green only against the lying index. Naming drift:
-      the org's services work repo is dea-catalog-business-services; the
-      metamodel catalog_repo pointer and this register record the declared
-      name. Reconciliation is a named follow-up (CR-013 section 6; metamodel
-      CR-MET-014 finding 2).
   - repo: dea-catalog-digital-identities
     foundation: kit landed 2026-11-02 (DID-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DigitalIdentity]
@@ -168,6 +205,12 @@ catalogs:
       Ratified at creation by this CR. Stood up 2026-10-29/30 under CR-IA-CAT-01..04;
       classification crosswalk target side of dea-catalog-information-classes (CR-IC-CAT-05 D-6);
       the named unblock for the capabilities U-2 realization.information residual.
+  - repo: dea-catalog-information-classes
+    entities: [dea:InformationClass]
+    state: populated
+    canonical_count: 8
+    ratified: '2026-10-30'
+    notes: First mapped-from crosswalks promoted by CR-IC-CAT-10 (2026-10-30).
   - repo: dea-catalog-information-models
     entities: [dea:InformationModel]
     state: populated
@@ -178,18 +221,46 @@ catalogs:
       governance chain (root model CR-AR-FMWK-15 v0.9.0 -> metamodel CR-MET-019 -> kit
       CR-IM-CAT-01). The conceptual/logical-blueprint entity of the information family;
       population is evidence-gated (CR-IM-CAT-02 plan).
-  - repo: dea-catalog-information-classes
-    entities: [dea:InformationClass]
-    state: populated
-    canonical_count: 8
-    ratified: '2026-10-30'
-    notes: First mapped-from crosswalks promoted by CR-IC-CAT-10 (2026-10-30).
+  - repo: dea-catalog-information-system-services
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      No catalog layout yet: 'Canonical catalogue for the Information System
+      Service (ISS) entity' (owner CR-IS-CAT-03A foundation exists; entities/
+      tree not yet present at the 2026-11-11/12 sweep). No metamodel entity
+      allocation recorded here yet (metamodel prose names this repo; its
+      catalog_repo pointer is null).
+  - repo: dea-catalog-infrastructure-components
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      EMPTY repository on origin (created 2026-10-19, never initialized; git
+      tree API returns 409). 'Canonical catalogue for the Infrastructure
+      Component (IFC) entity' per its description. No metamodel entity
+      allocation recorded here yet.
   - repo: dea-catalog-intangible-resources
     entities: [dea:IntangibleResource]
     state: skeleton
     canonical_count: 0
     ratified: '2026-11-02'
     foundation: kit landed 2026-11-02 (INR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
+  - repo: dea-catalog-integration-interfaces
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      EMPTY repository on origin (created 2026-10-19, never initialized; git
+      tree API returns 409). 'Canonical catalogue for the Integration Interface
+      (II) entity' per its description. No metamodel entity allocation recorded
+      here yet.
   - repo: dea-catalog-investment-initiatives
     foundation: kit landed 2026-11-02 (IVI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InvestmentInitiative]
@@ -231,6 +302,15 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
+  - repo: dea-catalog-ontologies
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      No catalog layout yet: 'Domain OWL/RDF ontologies — fintech and healthcare.
+      DEA L1 catalog repository.' No metamodel entity allocation yet.
   - repo: dea-catalog-organizational-units
     steward_note: >-
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
@@ -247,6 +327,20 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
+  - repo: dea-catalog-permission-probe
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    archived: true
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      ARCHIVED on GitHub and EMPTY (transient permission probe created
+      2026-10-19 during Path Y planning; description says: 'ARCHIVED: transient
+      permission probe'). Recorded for portfolio completeness, not for
+      realization: no metamodel entity allocation, no catalog layout, and no
+      reconciliation expectation. The archived key is informational (v12 schema
+      note); the reconciler does not read it.
   - repo: dea-catalog-physical-resources
     entities: [dea:PhysicalResource]
     state: skeleton
@@ -259,17 +353,24 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
-  - repo: dea-catalog-processes
-    entities: [dea:BusinessProcess]
-    state: populated
-    canonical_count: 3722
-    ratified: '2026-10-30'
+  - repo: dea-catalog-reference-architecture
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
     notes: >-
-      Register refreshed 2026-11-02 by the CR-014 reconciler: observed populated
-      (3,722 canonical) where the 2026-10-30 audit snapshot recorded skeleton (0).
-      The org also operates dea-catalog-business-processes; which repo is the
-      canonical home for dea:BusinessProcess remains a named follow-up
-      (CR-013 section 6; metamodel CR-MET-014 finding 2).
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      No catalog layout yet: 'Digital Enterprise Reference Architecture —
+      canonical reference model'. No metamodel entity allocation yet.
+  - repo: dea-catalog-references
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      No catalog layout yet: 'OpenDEA reference registry: IANA media types
+      (RFC 6838), IANA URI schemes'. No metamodel entity allocation yet.
   - repo: dea-catalog-regulations
     entities: [dea:Regulation]
     state: populated
@@ -306,6 +407,15 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
+  - repo: dea-catalog-solution-hub
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      No catalog layout yet: 'Solution Hub — catalogue of solution archetypes,
+      delivery templates'. No metamodel entity allocation yet.
   - repo: dea-catalog-stakeholders
     entities: [dea:Stakeholder]
     state: populated
@@ -341,6 +451,19 @@ catalogs:
     state: skeleton
     canonical_count: 0
     ratified: '2026-10-30'
+  - repo: dea-catalog-taxonomy
+    entities: []
+    state: skeleton
+    canonical_count: 0
+    archived: true
+    ratified: '2026-11-12'
+    notes: >-
+      Registered 2026-11-12 (register v12; CR-022), scope broadened per CR-022.
+      ARCHIVED on GitHub (ADR-0004 D2: Taxonomy Node merged into Concept — use
+      dea-catalog-concepts). Recorded for portfolio completeness, not for
+      realization: no metamodel entity allocation, no catalog layout, and no
+      reconciliation expectation. The archived key is informational (v12 schema
+      note); the reconciler does not read it.
   - repo: dea-catalog-technology-radar
     foundation: kit landed 2026-11-02 (TRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:TechnologyRadarEntry]
