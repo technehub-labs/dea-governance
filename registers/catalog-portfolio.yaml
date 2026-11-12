@@ -213,12 +213,18 @@ catalogs:
   - repo: dea-catalog-information-assets
     entities: [dea:InformationAsset]
     state: populated
-    canonical_count: 7
+    canonical_count: 25
     ratified: '2026-10-30'
     notes: >-
-      Ratified at creation by this CR. Stood up 2026-10-29/30 under CR-IA-CAT-01..04;
-      classification crosswalk target side of dea-catalog-information-classes (CR-IC-CAT-05 D-6);
-      the named unblock for the capabilities U-2 realization.information residual.
+      Refreshed 2026-11-12 (register v12 amendment; CR-022B): canonical_count
+      7 -> 25 — the v12 figure was the 2026-10-30 creation audit snapshot; the
+      catalog advancement programme grew the catalog to 25 canonical records
+      (produces/consumes process edges included). Verified against the repo's
+      own index (CATALOG.yaml counts.canonical: 25, retired 0) at the
+      2026-11-12 recon. History: ratified at creation by this CR. Stood up
+      2026-10-29/30 under CR-IA-CAT-01..04; classification crosswalk target
+      side of dea-catalog-information-classes (CR-IC-CAT-05 D-6); the named
+      unblock for the capabilities U-2 realization.information residual.
   - repo: dea-catalog-information-classes
     entities: [dea:InformationClass]
     state: populated
@@ -308,19 +314,21 @@ catalogs:
   - repo: dea-catalog-metrics
     entities: [dea:PerformanceMetric]
     state: populated
-    canonical_count: 4428
+    canonical_count: 5
     index: bespoke
     ratified: '2026-10-30'
     notes: >-
-      Corrected 2026-10-31 (register v7; CR-016): the v1-v6 'skeleton' readings were an
-      observation defect - the index is 4 MB and the contents API returns no content for
-      files over 1 MB, so every index-based pass read it as empty. The corpus is 4,428
-      metric records (owner's own index: 5 admitted, 4,423 candidate) under a bespoke
-      index schema; org-standard machinery would classify the records as canonical
-      ("root-position records" in the v7-v9 wording is stale since CR-MET-024 sharded
-      the corpus under entities/v1-alpha/<letter>/; note wording repaired 2026-11-10,
-      CR-019). Reconciler v2 (size-safe index reader + bespoke-census cross-check)
-      detects this correctly. PerformanceMetric lifecycle 'existing' is thereby vindicated.
+      Refreshed 2026-11-12 (register v12 amendment; CR-022B): canonical_count now
+      reads the owner index's admitted (= canonical) figure, 5 — the v7 value 4,428
+      was the corpus size, a semantics this row now makes explicit. Corpus at the
+      2026-11-12 census: 4,433 metric records = 5 admitted + 4,428 candidate
+      (repo's own bespoke CATALOG.yaml: total 4433, admitted 5, candidate 4428;
+      grown by 5 candidate records since v7's 5 admitted + 4,423 candidate).
+      History — corrected 2026-10-31 (register v7; CR-016): the v1-v6 'skeleton'
+      readings were an observation defect (4 MB index exceeds the contents API's
+      1 MB content limit, so index-based passes read it as empty). Reconciler v2
+      (size-safe index reader + bespoke-census cross-check) detects this
+      correctly. PerformanceMetric lifecycle 'existing' is thereby vindicated.
 
   - repo: dea-catalog-model-deployments
     foundation: kit landed 2026-11-02 (MDL-CAT-01; waves 2-3 of the advancement programme)
@@ -348,7 +356,13 @@ catalogs:
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
       this repo predates or postdates the hyphen-form layout; verify its index counts
       against its record files before trusting state. Index refresh is the owner's call.
-    notes: 'Owner-active CR-OU series; records present; index refresh pending owner.'
+    notes: >-
+      Refreshed 2026-11-12 (register v12 amendment; CR-022B): the prior 'records
+      present' clause was inaccurate — a survey false-positive (the same class the
+      v9 stakeholders note-fix named): entities/ holds no entity records on main
+      (4 yaml files, none of them records; index canonical: 0, open_change_requests:
+      2). Owner CR-OU series active; contributions queue present; R6 floating-pin
+      watch on this repo's catalog-conformance.yml (unresolved).
     entities: [dea:OrganizationalUnit]
     state: skeleton
     canonical_count: 0
@@ -469,9 +483,15 @@ catalogs:
   - repo: dea-catalog-stakeholders
     entities: [dea:Stakeholder]
     state: populated
-    canonical_count: 11
+    canonical_count: 12
     ratified: '2026-11-08'
     notes: >-
+      Refreshed 2026-11-12 (register v12 amendment; CR-022B): canonical_count
+      11 -> 12 — the owner's stakeholder work continued after the v9 tranche
+      (pushed 2026-11-11): the repo's index (verified at the 2026-11-12 recon)
+      reads canonical: 12, retired: 11, entities: 23, research_files: 92, i.e.
+      all 11 v9-tranche records now carry retired status and 12 records are
+      canonical/active. History —
       Owner directive 2026-11-08: advanced to active + enriched. First canonical
       tranche CR-CATALOG-STRUCT-14 (PR #17): 11 records — 3 organisation/governance/
       community capacities + 8 regulators one-to-one with the regulations catalog's
@@ -480,10 +500,7 @@ catalogs:
       metamodel v1.0.0 schema projection with the regenerator re-vendored carrying the
       hyphen-form infer_state fix (CR-CATALOG-STRUCT-12, PR #15). Lifecycle mirrors
       promoted: dea-architecture-framework CR-AR-FMWK-16 (v0.9.1, PR #35) + dea-metamodel
-      CR-MET-021 (PR #210). The prior steward_note's infer_state exposure is RESOLVED by
-      the CR-CATALOG-STRUCT-12 re-vendor (upstream metaframework PR #58 fix); its
-      "records present" clause was inaccurate — contributions/ was empty at that time
-      (survey false-positive class); counts now verified against the regenerated index.
+      CR-MET-021 (PR #210).
   - repo: dea-catalog-strategic-objectives
     foundation: kit landed 2026-11-02 (SO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:StrategicObjective]
@@ -528,11 +545,30 @@ catalogs:
     ratified: '2026-10-30'
   - repo: dea-catalog-tenets
     entities: [dea:Tenet]
-    state: populated
-    canonical_count: 8
+    state: skeleton
+    canonical_count: 0
     ratified: '2026-10-30'
     index: bespoke
-    notes: 'Owner-side CR-TEN series (CR-TEN-02 populated 8 tenet records). The programme kit (CR-TNT-CAT-01, PR #6) was superseded by the owner rewrite; no programme records remain.'
+    notes: >-
+      CORRECTED 2026-11-12 (register v12 amendment; CR-022B): the prior
+      'populated / 8 canonical (CR-TEN-02 populated 8 tenet records)' reading
+      was FALSE — verified against the repo itself: CR-TEN-02 (PR #5) delivered
+      the entity-system gate + registry only ('gate vacuously CONFORMANT
+      (0 entities in file_globs)' per its own change record), kit PR #6 added
+      the empty entities/v1-alpha scaffold (.gitkeep), and the repo's own
+      CATALOG.yaml reads canonical: 0, entities: 0. No tenet record exists on
+      origin main. The 8-record owner rewrite (2026-11-01: 8 tenet records +
+      documentation standard) exists ONLY on the unpushed local branch
+      local/tenets-owner-rewrite-wip in the workspace clone — it has never
+      been pushed. The erroneous 8-canonical reading arose from auditing the
+      pre-migration local clone whose main carried that unpushed WIP (survey
+      false-positive class). Downstream correction named: dea-metamodel
+      CR-MET-016 promoted dea:Tenet lifecycle scaffold -> existing citing
+      'owner-side CR-TEN series, 8 canonical' — the same erroneous observation
+      rides in that promotion (CR-MET-017 BusinessCapability correction
+      precedent applies; repoint or re-observe at the next metamodel lifecycle
+      pass). Landing the owner-rewrite branch as a PR would re-validate the
+      promotion honestly.
   - repo: dea-catalog-value-streams
     entities: [dea:ValueStream]
     state: populated
