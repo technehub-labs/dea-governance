@@ -143,7 +143,9 @@ A naive topological sort fails: 29 of 45 nodes sit in cycles. Tarjan's strongly-
 
 The cycle is structural: capability *is implemented by* process, process *is automated by* system function, system function *is exposed via* API contract, API contract *serves* data entity, data entity *is curated into* data product, data product *is exposed via* API contract. Each edge is legitimate EA semantics. **The metamodel therefore cannot be built one repo at a time in this cluster** — the 12 catalogs must be *admitted together*, or the relationship graph must be relaxed.
 
-**This is the single most important architectural finding in the audit.** It is also the root cause of the org's live breakage: the roles↔skills edge is unresolved *because* the cluster cannot be admitted piecemeal.
+**This is the single most important architectural finding in the audit.**
+
+**Scope note — this cycle does *not* explain the `roles → skills` breakage.** `skills` and `roles` sit *outside* the cluster (`skills → roles → actors` is a simple chain, W31 → W29). The 7 failing `roles` CI runs are caused by `skills` having **never published** — 735 files, 0 promoted — not by the cycle. The two are separate problems with separate fixes; the cycle is the architectural one, the skills publication is the immediate one.
 
 ### 4.3 Build order (34 waves, dependencies first)
 
@@ -202,12 +204,12 @@ Derived by topological sort of the condensation DAG. Verified: **0 prerequisite-
 - **W1–W4** are true foundations: `information-classes` (classification of data by sensitivity) → `integration-interfaces` → `platform-services` → `information-system-services`. Three of the four are Band B or C — content does not yet exist where the graph says it must.
 - **W5** is the 12-catalog cycle. It is the bulk of the org's content (4,522 promoted records, ~78% of all canonical records) and it cannot be decomposed further. **Wave 5 is the critical path for the entire programme.**
 - **W6–W9** (`actors`, `risk-register`, `ai-ml-models`, `patterns`) depend only on the cluster and are individually unblocked.
-- **W10–W34** fan out from the cluster along governance, measurement and capability edges. `concepts` (W14) and `controls` (W15) are the most load-bearing downstream items — 8 of the 12 cluster members depend on `metrics`, and `metrics` sits inside the cycle.
+- **W10–W34** fan out from the cluster along governance, measurement and capability edges. `concepts` (W14) and `controls` (W15) are the most load-bearing downstream items — 5 of the 12 cluster members depend on `metrics` (application-components, business-capabilities, data-entities, strategic-objectives, system-functions), and `metrics` sits inside the cycle — 12 catalogs org-wide depend on it.
 
 ### 4.5 What the order implies
 
 1. **Admission must be cluster-aware.** The org's current per-catalog admission process (one catalog per CR series) cannot close a 12-node cycle. A *cluster admission* CR is needed, or the cycle must be broken by relaxing one edge (the most defensible candidate: `data-product --exposed via--> API contract`, which is a realisation edge the graph does not need to be mutual).
-2. **`metrics` is the chokepoint.** 8 of 12 cluster members declare `measured by -> metrics`. `metrics` has 4,433 files and **0 promoted records**. Until `metrics` is admitted, 8 catalogs cannot complete.
+2. **`metrics` is the chokepoint.** 5 of the 12 cluster members declare `measured by -> metrics` (application-components, business-capabilities, data-entities, strategic-objectives, system-functions); 12 catalogs org-wide depend on it. `metrics` has 4,433 files and **0 promoted records** — so every one of those 12 is blocked on a catalog that has never promoted a record.
 3. **The `roles → skills` edge is the canary.** 9,550 pending batch edges, 2,473 resolvable now, 7 CI failures. Publishing `skills` as canonical converts 9,550 pending edges into resolvable ones in one step — the highest-leverage single action in the org.
 
 ---
@@ -300,7 +302,7 @@ Board field state: **51 distinct card titles across 5 boards**; every board's `S
 2. Shard the two over-limit directories (`dea-catalog-references` ×2 at 1,812; `dea-catalog-roles/entities/v1-alpha` at 1,252). This is a correctness fix: consumers currently cannot enumerate the full catalog.
 3. Publish `dea-catalog-skills` as canonical (735 files already written). Highest-leverage single action — resolves 9,550 pending edges and clears the 7 failing `roles` CI runs.
 4. Give the 14 index-less catalogs a `CATALOG.yaml`, and bring `metrics`/`roles`/`skills` onto the `state:` schema. Until then the register cannot measure a third of the org, and R3 is silently inert for those repos.
-5. Promote `dea-catalog-metrics` records to `state: canonical`. 4,433 files are staged and 8 of the 12 cluster catalogs wait on this one catalog.
+5. Promote `dea-catalog-metrics` records to `state: canonical`. 4,433 files are staged and 5 of the 12 cluster catalogs (12 org-wide) wait on this one catalog.
 
 **Structural (this is the metamodel conversation):**
 
