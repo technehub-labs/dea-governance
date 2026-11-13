@@ -15,6 +15,7 @@
 - **Zero open PRs org-wide**, yet 75 open issues — work is serialised through a single issue queue, not through review.
 - **The dependency graph is cyclic.** 12 catalogs form a single mutually-dependent cluster; a strict topological build order does not exist and cannot be manufactured without changing the metamodel.
 - **14 catalogs have no `CATALOG.yaml` index at all** — ~4,400 entity files the org's own tooling cannot enumerate.
+- **The federation layer is ungoverned:** the registry's advertised JSON entry point (`lists.technehub.com/data/index.json`) is a **404** that is never built, and **2 of 4** cross-org `wsf:`/`odea:` id references in `dea-metamodel` resolve against **nothing** in WSF's normative vocabulary. No validator reads the mapping; all of it passes green CI. (§11)
 - **The org's own reconciler is red on `main`** (`dea-governance` → `reconcile-portfolio`), failing since 2026-11-12 with 11 findings.
 
 ---
@@ -291,6 +292,8 @@ Board field state: **51 distinct card titles across 5 boards**; every board's `S
 | D12 | Zero branch protection, zero CODEOWNERS, 6% PR templates | hygiene sweep |
 | D13 | 14 catalogs have no `CATALOG.yaml` index at all | contents-API sweep — ~4,400 entities invisible to index tooling |
 | D14 | Index schema diverged into 4 incompatible shapes | 17 `state:` · 3 `lifecycle_status:` only · 20 empty · 14 no index |
+| D15 | Registry advertises `data/index.json` that is never built and 404s | `index.html` L8 vs `scripts/build.sh` outputs |
+| D16 | 2 of 4 cross-org id refs unresolvable against WSF normative vocabulary | `odea:BusinessCapability`, `odea:BusinessProcess` |
 
 ---
 
@@ -321,9 +324,75 @@ Board field state: **51 distinct card titles across 5 boards**; every board's `S
 
 - **Observed vs workflow-observable.** Private repos are visible to the requester's token but not to the default CI token. The audit separates the two and never reports a 404 as *does not exist*.
 - **`state:` vs `lifecycle_status`.** Where a CATALOG.yaml carries both and they disagree (e.g. `business-processes`: `lifecycle_status: candidate`, `state: canonical`), `state:` is treated as authoritative because it is the field the register's `canonical_count` is defined against.
+- **Federation scope (§11):** the cross-org check covers the `wsf:`/`odea:` ids declared by `technehub-labs` (4 ids, 2 files) against WSF's normative vocabulary. It does **not** audit WSF's own internal consistency, and it does **not** cover the `wsf-connectors` OpenDEA adapter, which expresses a *second* independent copy of the Capability mapping with no check that the two agree.
 - **Not claimed:** that any repo's *content* is correct, that relationship semantics are right, or that a build order should be executed. The dependency tree is derived from the metamodel as written. If the metamodel is wrong, the tree inherits that error — which is why finding D10 is framed as a decision for you, not a defect to be patched.
 - **Not claimed:** that the 16 failing CI runs indicate broken content. Four are governance controls (`.github`, `dea-governance`, `dea-release-package`), two are dormant (`dea-cli`, `dea-ontology`), and the rest are content-validation failures on Band-B/C repos.
 - **Snapshot:** all state read 2026-11-13. The org pushes most days; re-run the reconciler for a current view.
+
+---
+
+## 11. Federation addendum — the org is not the system
+
+The first pass of this audit scoped itself to `technehub-labs`. That is a scope error: the authoritative artefacts for a federated setup live *outside* the org under review. This addendum closes the gap. Re-verified against live state 2026-11-13.
+
+### 11.1 The canonical catalogue is outside the org — and its entry point is broken
+
+`dea-catalog-references` publishes the OpenDEA Reference Registry to `lists.technehub.com` (GitHub Pages). Its landing page advertises a JSON catalogue via:
+
+```html
+<link rel="alternate" type="application/json" href="/data/index.json">
+```
+
+**`https://lists.technehub.com/data/index.json` returns HTTP 404.** It is not deployed and is not built: `scripts/build.sh` emits `data/media-types/iana-media-types.json`, `data/uri-schemes/iana-uri-schemes.json`, `data/ecf-coordinates/coordinates.json`, `data/paths.tsv` and `data/SHA256SUMS` — **never `data/index.json`**. The `data/` directory in the source repo contains exactly those five entries and no `index.json`.
+
+Everything else on the site resolves (200):
+
+| Path | Status | Size |
+|---|---|---|
+| `/data/media-types/iana-media-types.json` | 200 | 1,026,636 b |
+| `/data/uri-schemes/iana-uri-schemes.json` | 200 | 163,890 b |
+| `/data/ecf-coordinates/coordinates.json` | 200 | 17,392 b |
+| `/data/paths.tsv` | 200 | 179,463 b |
+| `/data/SHA256SUMS` | 200 | 375 b |
+| `/media-types/` · `/uri-schemes/` · `/ecf/` · `/dea/` · `/healthz` | 200 | — |
+| **`/data/index.json`** | **404** | **9,379 b (error page)** |
+
+The ECF coordinate file is live and healthy — `snapshot_date: 2026-10-16`, 7 domains × 7 stages, sourced from `dea-metaframework/framework/matrix.md`. So the registry's *content* is sound; the **machine-readable entry point consumers are told to use is a dangling reference**.
+
+### 11.2 Two broken cross-org id references in `dea-metamodel/mappings/wsf/mapping.yaml`
+
+`dea-metamodel` declares a federation mapping to WSF. Two of its rows assert that a WSF-side concept is *already published*. Both assertions are false against WSF's normative vocabulary.
+
+| Mapping row | Claims | Reality |
+|---|---|---|
+| `dea:BusinessCapability` → `odea:BusinessCapability` | *"the WSF side is already published as a specialization of `wsf:Capability` in `wsf/concepts/capability.md`"* | The string `odea:BusinessCapability` **does** appear in `wsf/concepts/capability.md` — but only inside a prose `### OpenDEA Specialization` YAML block. It is **absent from `wsf-spec/turtle/wsf-vocabulary.ttl`**, WSF's normative vocabulary (504 lines, 39 concept ids, **zero `odea:` namespace**). |
+| `dea:BusinessProcess` → `odea:BusinessProcess` | *"the WSF side is a specialization of `wsf:Process` in the same template as `odea:BusinessCapability` ↔ `wsf:Capability`"* | **`odea:BusinessProcess` does not exist anywhere in WSF.** Content scan across `wsf` (57 blobs), `wsf-spec` (7) and `wsf-docs` (9): zero occurrences. `wsf/concepts/process.md` (61 lines) has **no** OpenDEA Specialization block and never mentions `Business`. |
+
+**The root-model mapping rows are sound.** `dea:Capability` ↔ `wsf:Capability` and `dea:Process` ↔ `wsf:Process` both check out: `wsf:Capability` and `wsf:Process` are both declared `a wsf:Concept` in the normative vocabulary, and `wsf/concepts/capability.md` carries `semantic_id: wsf:Capability` with `parent: wsf:Capability` on the OpenDEA specialization. The mapping's own note is accurate there.
+
+**Namespace check.** The full set of `wsf:`/`odea:` ids referenced from `technehub-labs` is **4** — `wsf:Capability`, `wsf:Process`, `odea:BusinessCapability`, `odea:BusinessProcess` — confined to two files (`dea-metamodel/mappings/wsf/mapping.yaml` and `dea-metamodel/metamodel/dea-metamodel.yaml`). No `wsf:` id is used as a *native* identifier anywhere in the org, so there is **no cross-org id collision** — the two `odea:` ids are broken *references*, not collisions. Both `wsf:` ids resolve against WSF's normative vocabulary.
+
+### 11.3 CI blindness: nothing detects any of this
+
+- **No validator reads the WSF mapping.** A content scan of all 23 scripts under `dea-metamodel/scripts/` and `dea-metamodel/tools/` found **zero** references to `mappings` or `wsf`. `mappings/wsf/mapping.yaml` is unvalidated, untested, and ungated.
+- **The portfolio reconciler does not cover it.** `dea-governance/registers/reconcile_portfolio.py` has no `mappings`/`wsf`/`federat` reference. Its R1–R6 checks are all intra-org.
+- **The Federation Watchdog does not cover it.** `dea-release-package/.github/workflows/watchdog.yml` (CR-DEA-RP-03) monitors *release manifests* — pin coherence, cross-version compatibility, asset drift. It never reads semantic mappings.
+- **No link check on the registry site.** `dea-catalog-references`' `scripts/validate-data.py` gate checks JSON shape and the `SHA256SUMS` invariants; it does not verify that the `<link rel="alternate">` target in `index.html` exists. That is why the 404 survives green CI.
+
+So all three findings — the broken registry entry point and the two broken `odea:` references — pass silently through green CI. **CI blindness is the finding.**
+
+### 11.4 The sibling org already has the machinery — extend, don't invent
+
+Per the check for an existing reconciler that already does the job for another org:
+
+- `World-Semantic-Foundation/wsf-governance/ID-RECONCILIATION.md` (2026-09-28, author Emmanuel A. Otchere) is an **established** id-reconciliation authority: a stated resolution rule (*"Canonical references: always use ADR-WSF-NNN … subject-namespace aliases are accepted as input but are resolved to the canonical ID"*), a machine-readable companion `id-aliases.yaml`, and explicit deprecation handling. It covers ADR/CR ids — **not** concept ids, so it does not yet cover `odea:BusinessCapability`.
+- `World-Semantic-Foundation/wsf-spec/turtle/wsf-vocabulary.ttl` is the **machine-readable concept-id authority** — the natural substrate for a mapping-conformance check.
+- `World-Semantic-Foundation/wsf-connectors/adapters/opendea/` is the existing OpenDEA adapter, already mapping `OpenDEA Capability : wsf:Capability` — a *second*, independent place where the same mapping is expressed, with no check that the two agree.
+
+**Recommendation:** do not build a new cross-org reconciler. Extend the existing `dea-governance/registers/reconcile_portfolio.py` with an **R7 — federation-mapping conformance** check that resolves each `wsf:`/`odea:` target in `dea-metamodel/mappings/wsf/mapping.yaml` against WSF's normative vocabulary, and add a **link check** to `dea-catalog-references`' `validate-data.py` for advertised site paths. Both are extensions of existing gates, not new machinery. The vocabulary fetch is a `curl` against one `raw.githubusercontent.com` URL — cheap, and it fails loudly when the upstream id is absent.
+
+**Cross-org write boundary.** The repair for `odea:BusinessCapability` and `odea:BusinessProcess` is **WSF-side** (publish the concepts in `wsf-spec/turtle/wsf-vocabulary.ttl`, or correct the mapping's claim). That is outside `technehub-labs` write authority and needs a WSF-side change request. The two `technehub-labs`-side fixes — the registry `index.json` and the gate — are in scope here.
+
 
 ---
 
@@ -339,6 +408,12 @@ gh run view 43230817650 --repo technehub-labs/dea-governance --log-failed
 # Pin truth
 gh api repos/technehub-labs/dea-metaframework/tags --jq '.[].name'
 gh api repos/technehub-labs/dea-architecture-framework/tags --jq '.[].name'
+
+# Federation: the registry entry point (expect 404 — never built)
+curl -sSL -o /dev/null -w '%{http_code}\n' https://lists.technehub.com/data/index.json
+
+# Federation: WSF normative vocabulary (the concept-id authority)
+gh api repos/World-Semantic-Foundation/wsf-spec/contents/turtle/wsf-vocabulary.ttl --jq .content | base64 -d | grep -c 'a wsf:Concept'
 
 # Branch protection (expect 404 on all 77)
 gh api repos/technehub-labs/dea-metamodel/branches/main/protection
