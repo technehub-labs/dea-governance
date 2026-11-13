@@ -331,6 +331,31 @@ Board field state: **51 distinct card titles across 5 boards**; every board's `S
 
 ---
 
+## 10. Reproduction
+
+```bash
+# Inventory
+gh api '/orgs/technehub-labs/repos?per_page=100&type=all' --paginate
+
+# The org's own reconciler (11 findings)
+gh run view 43230817650 --repo technehub-labs/dea-governance --log-failed
+
+# Pin truth
+gh api repos/technehub-labs/dea-metaframework/tags --jq '.[].name'
+gh api repos/technehub-labs/dea-architecture-framework/tags --jq '.[].name'
+
+# Federation: the registry entry point (expect 404 — never built)
+curl -sSL -o /dev/null -w '%{http_code}\n' https://lists.technehub.com/data/index.json
+
+# Federation: WSF normative vocabulary (the concept-id authority)
+gh api repos/World-Semantic-Foundation/wsf-spec/contents/turtle/wsf-vocabulary.ttl --jq .content | base64 -d | grep -c 'a wsf:Concept'
+
+# Branch protection (expect 404 on all 77)
+gh api repos/technehub-labs/dea-metamodel/branches/main/protection
+```
+
+---
+
 ## 11. Federation addendum — the org is not the system
 
 The first pass of this audit scoped itself to `technehub-labs`. That is a scope error: the authoritative artefacts for a federated setup live *outside* the org under review. This addendum closes the gap. Re-verified against live state 2026-11-13.
@@ -392,29 +417,3 @@ Per the check for an existing reconciler that already does the job for another o
 **Recommendation:** do not build a new cross-org reconciler. Extend the existing `dea-governance/registers/reconcile_portfolio.py` with an **R7 — federation-mapping conformance** check that resolves each `wsf:`/`odea:` target in `dea-metamodel/mappings/wsf/mapping.yaml` against WSF's normative vocabulary, and add a **link check** to `dea-catalog-references`' `validate-data.py` for advertised site paths. Both are extensions of existing gates, not new machinery. The vocabulary fetch is a `curl` against one `raw.githubusercontent.com` URL — cheap, and it fails loudly when the upstream id is absent.
 
 **Cross-org write boundary.** The repair for `odea:BusinessCapability` and `odea:BusinessProcess` is **WSF-side** (publish the concepts in `wsf-spec/turtle/wsf-vocabulary.ttl`, or correct the mapping's claim). That is outside `technehub-labs` write authority and needs a WSF-side change request. The two `technehub-labs`-side fixes — the registry `index.json` and the gate — are in scope here.
-
-
----
-
-## 10. Reproduction
-
-```bash
-# Inventory
-gh api '/orgs/technehub-labs/repos?per_page=100&type=all' --paginate
-
-# The org's own reconciler (11 findings)
-gh run view 43230817650 --repo technehub-labs/dea-governance --log-failed
-
-# Pin truth
-gh api repos/technehub-labs/dea-metaframework/tags --jq '.[].name'
-gh api repos/technehub-labs/dea-architecture-framework/tags --jq '.[].name'
-
-# Federation: the registry entry point (expect 404 — never built)
-curl -sSL -o /dev/null -w '%{http_code}\n' https://lists.technehub.com/data/index.json
-
-# Federation: WSF normative vocabulary (the concept-id authority)
-gh api repos/World-Semantic-Foundation/wsf-spec/contents/turtle/wsf-vocabulary.ttl --jq .content | base64 -d | grep -c 'a wsf:Concept'
-
-# Branch protection (expect 404 on all 77)
-gh api repos/technehub-labs/dea-metamodel/branches/main/protection
-```
