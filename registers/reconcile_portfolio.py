@@ -553,7 +553,10 @@ def main() -> int:
 
     # R2/R3 existence + state (online only)
     if not token:
-        print("WARN: no GITHUB_TOKEN/GH_TOKEN; R2/R3/R5/R6/R9 skipped (offline mode)")
+        print(
+            "WARN: no GITHUB_TOKEN/GH_TOKEN; R2/R3/R5/R6/R9 skipped (offline mode); "
+            "R7/R8 read the public upstream reference root (no credential required)"
+        )
     else:
         meta_tags, merr = _fetch_metaframework_tags(token)
         if meta_tags is None:
