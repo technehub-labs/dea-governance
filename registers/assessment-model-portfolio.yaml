@@ -1,0 +1,115 @@
+# Assessment-Model Portfolio Register (CR-023)
+#
+# The federation's register of the maturity-model population: which
+# repository publishes each maturity model, which organization owns that
+# repository, and which canonical reference id in the federation's
+# canonical reference root the model is bound to.
+#
+# The canonical reference root is technehub-labs/dea-metamodel ->
+# assessment-models/catalog/reference-catalog.yaml (raw, main ref). It is
+# the authority for WHAT version exists: it publishes the canonical id
+# and the version under that id for every maturity model. This register
+# is the authority for WHERE that version is published: the repository
+# pointer and the immutable release reference. Neither duplicates the
+# other: the catalogue carries no repository pointers, and this register
+# never redefines a canonical id or a canonical version. Reconciler rule
+# R7 checks that the two agree in both directions; R8 checks that no
+# reference either side names dangles.
+#
+# Cross-organization dependencies here are contractual, not
+# repository-structural: this register records where a model is
+# published, and the reconciler READS published artefacts. It does not
+# require the Assessment-Models organization to change its repository
+# layout, nor the upstream root to change its catalogue shape.
+#
+# Schema:
+#   repo:              repository name (no organization prefix)
+#   organization:      the GitHub organization that OWNS the repository;
+#                      every API / raw.githubusercontent URL for this row is
+#                      built from this value, never from a global default
+#   canonical_id:      federation-wide canonical reference id published
+#                      by the upstream reference catalogue
+#                      (e.g. dea:maturity-technology)
+#   canonical_version: the version published under that canonical id
+#   state:             published | pending
+#                      published - the repository and its immutable
+#                        release resolve today
+#                      pending   - the row is declared and its canonical
+#                        binding is live in the upstream catalogue, but
+#                        the repository pointer is still in flight
+#   release:           immutable release reference (git tag vX.Y.Z)
+#   ratified:          date this register first recorded the model
+#
+# `pending` is not an exemption: a row whose repository does not resolve
+# is still reported by the reconciler (R9). A pending row records a
+# known, in-flight pointer; it never silences the finding.
+
+register_version: 1
+snapshot_date: '2026-11-14'
+ratified_by: CR-023
+
+models:
+  - repo: maturity-model-technology
+    organization: Assessment-Models
+    canonical_id: dea:maturity-technology
+    canonical_version: 1.0.0
+    state: published
+    release: v1.0.0
+    ratified: '2026-11-14'
+  - repo: maturity-model-modernization
+    organization: Assessment-Models
+    canonical_id: dea:maturity-modernization
+    canonical_version: 1.0.0
+    state: published
+    release: v1.0.0
+    ratified: '2026-11-14'
+  - repo: maturity-model-operations
+    organization: Assessment-Models
+    canonical_id: dea:maturity-operations
+    canonical_version: 1.0.0
+    state: published
+    release: v1.0.0
+    ratified: '2026-11-14'
+  - repo: maturity-model-services-delivery
+    organization: Assessment-Models
+    canonical_id: dea:maturity-services-delivery
+    canonical_version: 1.0.0
+    state: published
+    release: v1.0.0
+    ratified: '2026-11-14'
+  - repo: maturity-model-autonomous-operations
+    organization: Assessment-Models
+    canonical_id: dea:maturity-autonomous-operations
+    canonical_version: 1.0.1
+    state: published
+    release: v1.0.1
+    ratified: '2026-11-14'
+  - repo: maturity-model-digital-transformation-operationalized
+    organization: Assessment-Models
+    canonical_id: dea:maturity-digital-transformation-operationalized
+    canonical_version: 1.0.1
+    state: published
+    release: v1.0.1
+    ratified: '2026-11-14'
+  - repo: maturity-model-digital-transformation
+    organization: Assessment-Models
+    canonical_id: dea:maturity-digital-transformation
+    canonical_version: 1.0.0
+    state: published
+    release: v1.0.0
+    ratified: '2026-11-14'
+  - repo: maturity-model-ea-capability
+    organization: technehub-labs
+    canonical_id: dea:maturity-ea-capability
+    canonical_version: 1.0.0
+    state: pending
+    release: v1.0.0
+    ratified: '2026-11-14'
+    notes: >-
+      The DEA-owned EA-capability model; its canonical binding is already
+      live in the upstream reference catalogue (dea:maturity-ea-capability
+      1.0.0). The repository pointer is published in parallel by the
+      owning workstream, so this row is recorded `pending` until the
+      repository resolves. The reconciler still reports the unresolved
+      pointer as a finding (R9) - a pending row is a recorded
+      expectation, never a suppression.
