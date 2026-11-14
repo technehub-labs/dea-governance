@@ -51,6 +51,8 @@ jobs:
         run: python3 -m pytest -q registers/test_reconcile_directory_counts.py
       - name: Reconciler unit tests (R6 pin extraction; CR-021)
         run: python3 -m pytest -q registers/test_reconcile_pins.py
+      - name: Reconciler unit tests (R7/R8 canonical binding; CR-023)
+        run: python3 -m pytest -q registers/test_reconcile_canonical_bindings.py
 
   authorship:
     runs-on: ubuntu-latest
