@@ -50,9 +50,15 @@ catalogs:
   - repo: dea-catalog-ai-ml-models
     foundation: kit landed 2026-11-02 (AIM-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:AIMLModel]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1000
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-api-contracts
     foundation: kit landed 2026-11-02 (APC-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:IntegrationInterface, dea:API]
@@ -171,9 +177,15 @@ catalogs:
   - repo: dea-catalog-data-products
     foundation: kit landed 2026-11-02 (DPO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DataProduct]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 2557
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-digital-identities
     foundation: kit landed 2026-11-02 (DID-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:DigitalIdentity]
@@ -189,9 +201,15 @@ catalogs:
   - repo: dea-catalog-event-streams
     foundation: kit landed 2026-11-02 (EVT-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Event]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1026
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-experiments
     foundation: kit landed 2026-11-02 (EXP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Experiment]
@@ -207,9 +225,15 @@ catalogs:
   - repo: dea-catalog-guardrails
     foundation: kit landed 2026-11-02 (GRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Guardrail]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1196
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-information-assets
     entities: [dea:InformationAsset]
     state: populated
@@ -333,9 +357,15 @@ catalogs:
   - repo: dea-catalog-model-deployments
     foundation: kit landed 2026-11-02 (MDL-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ModelDeployment, dea:ModelFeedbackSignal]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1000
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-ontologies
     entities: []
     state: skeleton
@@ -370,9 +400,15 @@ catalogs:
   - repo: dea-catalog-patterns
     foundation: kit landed 2026-11-02 (PAT-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ArchitecturePattern, dea:Technology]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 2282
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-permission-probe
     entities: []
     state: skeleton
@@ -403,8 +439,14 @@ catalogs:
     foundation: kit landed 2026-11-02 (ISS-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InformationSystemService, dea:PlatformService]
     state: populated
-    canonical_count: 500
+    canonical_count: 3025
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
     notes: >-
       Refreshed 2026-11-15 (register v12 amendment; CR-022C): the row's skeleton/0
       reading was another index-truth false-negative — the owner had landed 500
@@ -452,9 +494,15 @@ catalogs:
   - repo: dea-catalog-risk-register
     foundation: kit landed 2026-11-02 (RSK-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Risk]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 2716
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-roles
     entities: [dea:Role]
     state: populated
@@ -564,9 +612,15 @@ catalogs:
   - repo: dea-catalog-technology-radar
     foundation: kit landed 2026-11-02 (TRD-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:TechnologyRadarEntry]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 2442
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022D): the population
+      programme's canonical admission wave promoted the full candidate corpus
+      to the canonical slot (provenance ladder completed per record; evidence
+      citations preserved from admission; ids untouched). Corpus provenance
+      recorded in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-tenets
     entities: [dea:Tenet]
     state: skeleton
