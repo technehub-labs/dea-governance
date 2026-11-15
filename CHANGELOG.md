@@ -4,6 +4,10 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+### CR-022E: Register v12 Amendment — Skeleton-Advance Register Refresh
+
+The skeleton-advance wave admitted evidence-backed candidate corpora into six remaining kit skeletons and promoted them to the canonical slot; the register flips six rows skeleton -> populated with their canonical counts: change-initiatives 999 (World Bank project documents), ecosystem-platforms 103 (curated platform registry — honest-to-source size), experiments 1,200 (ClinicalTrials.gov), financial-resources 1,500 (NASDAQ Trader symbol directory), investment-initiatives 999 (World Bank project documents), strategic-objectives 180 (UN SDG goals + targets — honest-to-source size). Provenance ladders completed per record; published-document evidence citations preserved. Batch CRs that landed under numbers colliding with their series' foundation/groundwork CRs were renumbered by per-repo naming-correction CRs (CR-CHI-CAT-05, CR-EP-CAT-05, CR-EXP-CAT-05, CR-FR-CAT-06, CR-II-CAT-05; BC-01A precedent). Totals 33 populated / 21 skeleton of 54; register_version stays 12.
+
 ### CR-022D: Register v12 Amendment — Canonical-Admission Register Refresh
 
 The population programme's canonical admission wave promoted the full candidate corpora to the canonical slot across nine programme repos; the register flips eight rows skeleton -> populated with their canonical counts and raises platform-services 500 -> 3,025 (2,525 programme ISS records + the 500 pre-existing owner PlatformService records): ai-ml-models 1,000, model-deployments 1,000, guardrails 1,196, event-streams 1,026, technology-radar 2,442, patterns 2,282, data-products 2,557, risk-register 2,716. Every promoted record completed its provenance ladder (candidate preserved -> corroborated -> reviewed -> canonical) with its published-document evidence citations preserved from admission — the abstraction's link to its evidence. Intake queues remain live for future submissions; queues stay admitted-closed (candidates 0). Totals 27 populated / 27 skeleton of 54; register_version stays 12.
