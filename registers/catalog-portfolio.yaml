@@ -44,9 +44,8 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-ai-ml-models
     foundation: kit landed 2026-11-02 (AIM-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:AIMLModel]
@@ -315,14 +314,21 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-intangible-resources
     entities: [dea:IntangibleResource]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 740
     ratified: '2026-11-02'
+    notes: >-
+      Refreshed 2026-11-16 (register v12 amendment; CR-022F): the skeleton-advance
+      wave admitted a 740-record candidate corpus (SPDX License List + OSI published
+      license registries; protection_type=license) through the gated intake workflow
+      (CR-INR-CAT-02/03/04) and the canonical admission wave promoted it to the
+      canonical slot (CR-INR-CAT-05; provenance ladders completed; published-document
+      evidence citations preserved per record). Corpus provenance in the repo's
+      ingestion/manifest.yaml.
     foundation: kit landed 2026-11-02 (INR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
   - repo: dea-catalog-integration-interfaces
     entities: []
@@ -338,9 +344,8 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-investment-initiatives
     foundation: kit landed 2026-11-02 (IVI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InvestmentInitiative]
@@ -408,9 +413,8 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-organizational-units
     steward_note: >-
       Possible infer_state misclassification exposure (same family as CR-DEA-BC-61):
@@ -503,9 +507,8 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-references
     entities: []
     state: skeleton
@@ -562,8 +565,11 @@ catalogs:
       735-record Skill candidate corpus on main (CR-DEA-SKL-01, roles-style bulk
       ingestion: ingestion/bulk-735-skills.csv + manifest + materialize_skills.py,
       sharded layout, all lifecycle_status: proposed, bespoke index entities: 735 /
-      canonical: 0) — the repo is OWNER-ACTIVE and was removed from the population
-      programme's scope mid-flight (the programme's kit-bring-up PR was closed
+      canonical: 0) — the repo is OWNER-ACTIVE; the population programme's kit-bring-up PR was
+      closed unmerged, and the skills<->roles interlock completion (CR-DEA-SKL-02,
+      PR #4, 2026-11-16) admitted the exact 7-record gap the roles catalogue
+      references — roles' 742/742 distinct skill references now resolve. The repo
+      remains owner-pipeline-managed (the programme's kit-bring-up PR was closed
       unmerged on that basis). The 1,000-candidate programme baseline is not met
       here (735); topping up is the owner's call through their own pipeline.
       Programme tooling (tools/ingest-kit) remains available for re-targeting.
@@ -579,9 +585,8 @@ catalogs:
       R2 note (CR-022A): this repository is private; the weekly
       reconciler's default workflow token cannot verify it, so R2 reports
       'does not exist' (a 404 is indistinguishable from no-access).
-      Documented red-by-design on this row until it is made public or the
-      workflow gains an org-read PAT — the owner's 2026-11-08 flip-public
-      precedent resolves the finding class.
+      RESOLVED 2026-11-16: the owner directed the flip-public; the repository is
+      now public and reconciler R2 verifies it directly.
   - repo: dea-catalog-stakeholders
     entities: [dea:Stakeholder]
     state: populated
