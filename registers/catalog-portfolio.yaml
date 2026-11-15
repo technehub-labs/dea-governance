@@ -152,9 +152,15 @@ catalogs:
   - repo: dea-catalog-change-initiatives
     foundation: kit landed 2026-11-02 (CHI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:ChangeInitiative]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 999
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-concepts
     entities: [dea:Concept]
     state: populated
@@ -195,9 +201,15 @@ catalogs:
   - repo: dea-catalog-ecosystem-platforms
     foundation: kit landed 2026-11-02 (ECP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:EcosystemPlatform]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 103
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-event-streams
     foundation: kit landed 2026-11-02 (EVT-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Event]
@@ -213,14 +225,26 @@ catalogs:
   - repo: dea-catalog-experiments
     foundation: kit landed 2026-11-02 (EXP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:Experiment]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1200
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-financial-resources
     entities: [dea:FinancialResource]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 1500
     ratified: '2026-11-02'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
     foundation: kit landed 2026-11-02 (FR-CAT-01; wave 4 creation; evidence-only population plan in its FOUNDATIONS)
   - repo: dea-catalog-guardrails
     foundation: kit landed 2026-11-02 (GRD-CAT-01; waves 2-3 of the advancement programme)
@@ -320,9 +344,15 @@ catalogs:
   - repo: dea-catalog-investment-initiatives
     foundation: kit landed 2026-11-02 (IVI-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:InvestmentInitiative]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 999
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-journey-touchpoints
     foundation: kit landed 2026-11-02 (JTP-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:JourneyTouchpoint]
@@ -576,9 +606,15 @@ catalogs:
   - repo: dea-catalog-strategic-objectives
     foundation: kit landed 2026-11-02 (SO-CAT-01; waves 2-3 of the advancement programme)
     entities: [dea:StrategicObjective]
-    state: skeleton
-    canonical_count: 0
+    state: populated
+    canonical_count: 180
     ratified: '2026-10-30'
+    notes: >-
+      Refreshed 2026-11-15 (register v12 amendment; CR-022E): the skeleton-advance
+      wave admitted an evidence-backed candidate corpus through the gated intake
+      workflow and the canonical admission wave promoted it to the canonical slot
+      (provenance ladders completed; published-document evidence citations preserved
+      per record). Corpus provenance in the repo's ingestion/manifest.yaml.
   - repo: dea-catalog-system-functions
     index: bespoke
     steward_note: >-
